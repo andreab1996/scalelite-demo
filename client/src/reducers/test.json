@@ -1,0 +1,54 @@
+{
+    "response": {
+        "returncode": {
+            "_text": "SUCCESS"
+        },
+        "version": {
+            "_text": "2.0"
+        },
+        "servers": {
+            "server": [
+                {
+                    "serverID": {
+                        "_text": "211a1b81-cf0f-437f-b2fc-346d407796c6"
+                    },
+                    "serverUrl": {
+                        "_text": "https://vcs4.etfbl.net/bigbluebutton/api/"
+                    },
+                    "online": {
+                        "_text": "false"
+                    },
+                    "loadMultiplier": {
+                        "_text": "1.0"
+                    },
+                    "enabled": {
+                        "_text": "false"
+                    },
+                    "load": {
+                        "_text": "0.0"
+                    }
+                },
+                {
+                    "serverID": {
+                        "_text": "02dea11c-ed7d-4377-b978-0ee1ad3d2382"
+                    },
+                    "serverUrl": {
+                        "_text": "https://vcs2.etfbl.net/bigbluebutton/api/"
+                    },
+                    "online": {
+                        "_text": "true"
+                    },
+                    "loadMultiplier": {
+                        "_text": "1.0"
+                    },
+                    "enabled": {
+                        "_text": "true"
+                    },
+                    "load": {
+                        "_text": "0.0"
+                    }
+                }
+            ]
+        }
+    }
+}
