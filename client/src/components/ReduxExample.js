@@ -1,57 +1,48 @@
+import Icon from '@ant-design/icons/lib/components/Icon';
+import { Alert } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { firstNameChanged, lastNameChanged, fullNameChanged, getData } from '../actions';
+import { getServers, closeAlert } from '../actions';
 import AntdTable from './AntdTable';
-import Table from './Table';
 class ReduxExample extends Component {
-    onFirstNameChanged = (event) => {
-        this.props.firstNameChanged(event.target.value);
-    }
-
-    onLastNameChanged = (event) => {
-        this.props.lastNameChanged(event.target.value);
-    }
-
-    onFullNameChanged = (event) => {
-        this.props.fullNameChanged(event.target.value);
-    }
-
-    onFullNameChanged = (event) => {
-        this.props.fullNameChanged(event.target.value);
+    UNSAFE_componentWillMount() {
+        this.props.getServers();
     }
 
     onGetData = () => {
-        this.props.getData();
+        this.props.getServers();
+    }
+
+    onCloseAlert = () => {
+        console.log("click")
+        this.props.closeAlert();
     }
 
     render() {
         return (
             <div>
-                Redux Example
-                <div>
-                    <input
-                        onChange={this.onFirstNameChanged}
-                        value={this.props.firstName}
+                {this.props.update === "SUCCESS" ?
+                    <Alert
+                        message="Success"
+                        description="Server has been successfully updated."
+                        type="success"
+                        showIcon
+                        closable
+                        closeAlert
+                    // onClick={this.onCloseAlert}
                     />
-                </div>
-                <div>
-                    <input
-                        onChange={this.onLastNameChanged}
-                        value={this.props.lastName}
-                    />
-                </div>
-                <div>
-                    <input
-                        onChange={this.onFullNameChanged}
-                        value={`${this.props.firstName} ${this.props.lastName}`}
-                    />
-                </div>
-                <button onClick={this.onGetData}>Fetch Data!</button>
-                <div style={{ marginTop: "10px" }}>
-                    {this.props.data.length > 0 ? <Table children={this.props.data} /> : "No Data"}
-                </div>
-                <div style={{ margin: "10px" }}>
-                    {this.props.data.length > 0 ? <AntdTable children={this.props.data} /> : "No Data"}
+                    : this.props.update === "ERROR" ?
+                        <Alert
+                            message="Error"
+                            description="Something went wrong! Try again."
+                            type="error"
+                            showIcon
+                            closable
+                        // onClick={this.onCloseAlert}
+                        /> : []
+                }
+                <div style={{ margin: "30px" }}>
+                    <AntdTable children={this.props.data} />
                 </div>
             </div>
         )
@@ -59,12 +50,12 @@ class ReduxExample extends Component {
 }
 
 const mapStateToProps = ({ textInput }) => {
-    const { firstName, lastName, data } = textInput;
-    console.log("test", data)
-    return { firstName, lastName, data };
+    const { data, update } = textInput;
+
+    return { data, update };
 }
 
 export default connect(
     mapStateToProps,
-    { firstNameChanged, lastNameChanged, fullNameChanged, getData }
+    { getServers, closeAlert }
 )(ReduxExample);
