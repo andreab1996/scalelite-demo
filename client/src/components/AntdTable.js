@@ -35,12 +35,16 @@ class AntdTable extends Component {
     onUpdateServer = (serverID) => {
         let server = this.props.children.find(s => s.serverID == serverID);
         if (server.enabled)
-            return this.props.disableServer(server.serverID);
-        return this.props.enableServer(server.serverID);
+            this.props.disableServer(server.serverID);
+        if (!server.enabled)
+            this.props.enableServer(server.serverID);
+
+        this.props.getServers();
     }
 
     onDeleteServer = (serverID) => {
         this.props.deleteServer(serverID);
+        this.props.getServers();
     }
 
     render() {
@@ -53,7 +57,7 @@ class AntdTable extends Component {
                     expandable={{
                         expandedRowRender: (record, i) =>
                             <p style={{ margin: 0 }}>
-                                Load Multiplier: {record.loadMultiplier}, Load: {record.load}, {i}
+                                Load Multiplier: {record.loadMultiplier}, Load: {record.load}
                             </p>,
                         rowExpandable: record => record.name !== 'Not Expandable',
                     }}

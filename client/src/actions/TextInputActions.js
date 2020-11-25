@@ -3,9 +3,9 @@ import axios from 'axios';
 import {
     ADD_SERVER,
     CLOSE_ALERT,
-    DELETE_SERVER,
-    DISABLE_SERVER,
-    ENABLE_SERVER,
+
+
+
     FETCH_SERVERS,
     UPDATE_SERVER
 } from './types';
@@ -20,19 +20,16 @@ const scalelite = new Scalelite(
 
 export const getServers = () => {
     return (dispatch) => {
-        const url = 'https://jsonplaceholder.typicode.com/todos';
 
-        // scalelite.getServers().then((json) => {
-        //     console.log("json = ", json);
-        //     console.log("servers = ", json.servers);
-        //     dispatch(receiveServers(json.servers))
-        // })
+        scalelite.getServers().then((json) => {
+            console.log("json = ", json);
+            console.log("servers = ", json.servers);
+            dispatch(receiveServers(json.servers))
+        })
 
-        // let servers = fetchServers();
-        // dispatch(receiveServers(servers));
-        axios.get(url)
-            .then((response) => dispatch(receiveServers(response.data)))
-            .catch((error) => console.log(error))
+        // axios.get('https://jsonplaceholder.typicode.com/todos')
+        //     .then((response) => dispatch(receiveServers(response.data)))
+        //     .catch((error) => console.log(error))
     }
 }
 
@@ -44,10 +41,22 @@ export const receiveServers = (data) => {
 }
 
 export const addServer = () => {
-    console.log("add");
-    return {
-        type: ADD_SERVER,
-        payload: "add"
+    console.log("Add Server");
+
+    return (dispatch) => {
+        scalelite
+            .addServer(
+                "https://vcss.etfbl.net/scalelite/api/",
+                "8dfcebc4b2c7faebf8ed960768c993e1bf23efc393780844"
+            )
+            .then((json) => {
+                let serverID = json.server.serverID;
+                scalelite.enableServer(serverID);
+                dispatch({
+                    type: ADD_SERVER,
+                    payload: { serverID }
+                })
+            })
     }
 }
 
@@ -61,10 +70,9 @@ export const enableServer = (serverID) => {
             scalelite.getServerInfo(serverID).then((json) => {
                 console.log("Server Info: ", json.server);
                 console.log("Uspjesno enable-ovan server ID = ", serverID);
-                let data = fetchServers();
                 dispatch({
                     type: UPDATE_SERVER,
-                    payload: { data, serverID, returnCode: json.returncode }
+                    payload: { serverID, returnCode: json.returncode }
                 })
             });
         });
@@ -74,8 +82,8 @@ export const enableServer = (serverID) => {
 export const disableServer = (serverID) => {
     console.log("disable", serverID);
     // return {
-    //     type: ENABLE_SERVER,
-    //     payload: { data, serverID, returnCode: "SUCCESS" }
+    //     type: UPDATE_SERVER,
+    //     payload: { serverID, returnCode: "SUCCESS" }
     // }
     return (dispatch) => {
         scalelite.disableServer(serverID).then((json) => {
@@ -84,10 +92,9 @@ export const disableServer = (serverID) => {
             scalelite.getServerInfo(serverID).then((json) => {
                 console.log("Server Info: ", json.server);
                 console.log("Uspjesno disable-ovan server ID = ", serverID);
-                let data = fetchServers();
                 dispatch({
-                    type: DISABLE_SERVER,
-                    payload: { data, serverID, returnCode: json.returncode }
+                    type: UPDATE_SERVER,
+                    payload: { serverID, returnCode: json.returncode }
                 })
             });
         });
@@ -114,12 +121,4 @@ export const closeAlert = () => {
         type: CLOSE_ALERT,
         payload: ''
     }
-}
-
-function fetchServers() {
-    scalelite.getServers().then((json) => {
-        console.log("json = ", json);
-        console.log("servers = ", json.servers);
-        return json.servers
-    })
 }

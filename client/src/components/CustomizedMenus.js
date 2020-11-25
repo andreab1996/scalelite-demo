@@ -71,13 +71,19 @@ export default function CustomizedMenus({ serverID, deleteServer, updateServer }
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <StyledMenuItem onClick={() => updateServer(serverID)}>
+                <StyledMenuItem onClick={() => {
+                    updateServer(serverID);
+                    handleClose();
+                }}>
                     <ListItemIcon>
                         <SaveIcon fontSize="small" />
                     </ListItemIcon>
                     <ListItemText primary="Enable/Disable" />
                 </StyledMenuItem>
-                <StyledMenuItem onClick={() => deleteServer(serverID)}>
+                <StyledMenuItem onClick={() => {
+                    deleteServer(serverID);
+                    handleClose();
+                }}>
                     <ListItemIcon>
                         <DeleteIcon fontSize="small" />
                     </ListItemIcon>

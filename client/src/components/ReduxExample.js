@@ -1,9 +1,10 @@
-import Icon from '@ant-design/icons/lib/components/Icon';
 import { Alert } from 'antd';
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
-import { getServers, closeAlert } from '../actions';
+import { closeAlert, getServers, addServer } from '../actions';
 import AntdTable from './AntdTable';
+import Button from '@material-ui/core/Button';
 class ReduxExample extends Component {
     UNSAFE_componentWillMount() {
         this.props.getServers();
@@ -14,9 +15,14 @@ class ReduxExample extends Component {
     }
 
     onCloseAlert = () => {
-        console.log("click")
         this.props.closeAlert();
     }
+
+    onAddServer = () => {
+        this.props.addServer();
+        this.props.getServers();
+    }
+
 
     render() {
         return (
@@ -29,7 +35,7 @@ class ReduxExample extends Component {
                         showIcon
                         closable
                         closeAlert
-                    // onClick={this.onCloseAlert}
+                        onClick={this.onCloseAlert}
                     />
                     : this.props.update === "ERROR" ?
                         <Alert
@@ -38,11 +44,30 @@ class ReduxExample extends Component {
                             type="error"
                             showIcon
                             closable
-                        // onClick={this.onCloseAlert}
-                        /> : []
+                            onClick={this.onCloseAlert}
+                        /> : this.props.update === "SUCCESS_CREATE" ?
+                            <Alert
+                                message="Success"
+                                description="Server has been successfully created and enabled."
+                                type="success"
+                                showIcon
+                                closable
+                                onClick={this.onCloseAlert}
+                            /> : []
                 }
                 <div style={{ margin: "30px" }}>
                     <AntdTable children={this.props.data} />
+                </div>
+                <div style={{ margin: "30px" }}>
+                    <Button
+                        aria-controls="customized-menu"
+                        aria-haspopup="true"
+                        variant="contained"
+                        onClick={this.onAddServer}
+                    // color="secondary"
+                    >
+                        Add new Server
+                    </Button>
                 </div>
             </div>
         )
@@ -57,5 +82,5 @@ const mapStateToProps = ({ textInput }) => {
 
 export default connect(
     mapStateToProps,
-    { getServers, closeAlert }
-)(ReduxExample);
+    { getServers, closeAlert, addServer }
+)(hot(ReduxExample));
