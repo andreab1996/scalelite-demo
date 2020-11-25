@@ -3,7 +3,7 @@
     font-family: arial, sans-serif;
 }
 
-#students {
+#servers {
     text-align: center;
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -11,24 +11,24 @@
     width: 100%;
 }
 
-#students td,
-#students th {
+#servers td,
+#servers th {
     border: 1px solid #ddd;
     padding: 8px;
 }
 
-#students tr:nth-child(even) {
+#servers tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-#students tr:hover {
+#servers tr:hover {
     background-color: #ddd;
 }
 
-#students th {
+#servers th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: center;
-    background-color: #4caf50;
+    background-color: rgb(63, 81, 181);
     color: white;
 }
