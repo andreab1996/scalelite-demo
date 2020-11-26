@@ -57,17 +57,22 @@ class Server extends Component {
                     <AntdTable children={this.props.data} />
                 </div>
                 <div style={{ margin: "30px" }}>
-                    <Button
-                        aria-controls="customized-menu"
-                        aria-haspopup="true"
-                        variant="contained"
+                    <button
                         onClick={this.onAddServer}
-                    // color="secondary"
+                        style={{
+                            background: "rgb(52, 118, 240)",
+                            color: "white",
+                            fontSize: "1em",
+                            margin: "1em",
+                            padding: "0.25em 1em",
+                            border: "2px solid rgb(75, 134, 245)",
+                            borderRadius: "3px",
+                        }}
                     >
                         Add new Server
-                    </Button>
+                    </button>
                 </div>
-            </div>
+            </div >
         )
     }
 }

@@ -1,4 +1,3 @@
-import Button from '@material-ui/core/Button';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
@@ -52,18 +51,15 @@ export default function CustomizedMenus({ serverID, deleteServer, updateServer }
 
     return (
         <div style={{
-            width: "130px",
+            width: "90px",
             margin: "auto",
         }}>
-            <Button
-                aria-controls="customized-menu"
-                aria-haspopup="true"
-                variant="outlined"
-                color="primary"
+            <a
                 onClick={handleClick}
+                style={{ textAlign: 'center', alignContent: 'center' }}
             >
-                Open Menu
-      </Button>
+                Choose action
+            </a>
             <StyledMenu
                 id="customized-menu"
                 anchorEl={anchorEl}
