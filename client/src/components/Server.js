@@ -2,11 +2,9 @@ import { Alert } from 'antd';
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
-import { closeAlert, getServers, addServer } from '../actions';
-import AntdTable from './AntdTable';
-import Button from '@material-ui/core/Button';
+import { addServer, closeAlert, getServers } from '../actions';
 import { StatusCode } from '../util/StatusCode';
-
+import AntdTable from './AntdTable';
 class Server extends Component {
     UNSAFE_componentWillMount() {
         this.props.getServers();
