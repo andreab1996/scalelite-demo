@@ -10,8 +10,8 @@ export default function App() {
 		<Router>
 			<div>
 				<Switch>
-					<Route exact path='/servers' component={Server} />
-					<Route exact path='/' component={Login} />
+					<Route exact path='/admin-andrea/servers' component={Server} />
+					<Route exact path='/admin-andrea' component={Login} />
 				</Switch>
 			</div>
 		</Router>

@@ -20,7 +20,7 @@ export default (state = INITIAL_STATE, action) => {
         case PASSWORD_CHANGED:
             return { ...state, password: action.payload };
         case LOGIN:
-            return { ...state, redirectTo: '/servers' };
+            return { ...state, redirectTo: '/admin-andrea/servers' };
         default:
             return INITIAL_STATE;
     }
