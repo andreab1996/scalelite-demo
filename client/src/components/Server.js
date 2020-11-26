@@ -25,7 +25,6 @@ class Server extends Component {
         this.props.getServers();
     }
 
-
     render() {
         return (
             <div>

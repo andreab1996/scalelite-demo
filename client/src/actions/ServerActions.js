@@ -63,39 +63,31 @@ export const enableServer = (serverID) => {
     return (dispatch) => {
         scalelite.enableServer(serverID).then((json) => {
             console.log("json = ", json);
-
-            scalelite.getServerInfo(serverID).then((json) => {
-                console.log("Server Info: ", json.server);
-                console.log("Uspjesno enable-ovan server ID = ", serverID);
-                dispatch({
-                    type: UPDATE_SERVER,
-                    payload: { serverID, returnCode: json.returncode }
-                })
-            });
+            console.log("Uspjesno enable-ovan server ID = ", serverID);
+            dispatch({
+                type: UPDATE_SERVER,
+                payload: { serverID, returnCode: json.returncode }
+            })
         });
     }
 }
 
 export const disableServer = (serverID) => {
     console.log("disable", serverID);
-    return {
-        type: UPDATE_SERVER,
-        payload: { serverID, returnCode: "SUCCESS" }
-    }
-    // return (dispatch) => {
-    //     scalelite.disableServer(serverID).then((json) => {
-    //         console.log("json = ", json);
-
-    //         scalelite.getServerInfo(serverID).then((json) => {
-    //             console.log("Server Info: ", json.server);
-    //             console.log("Uspjesno disable-ovan server ID = ", serverID);
-    //             dispatch({
-    //                 type: UPDATE_SERVER,
-    //                 payload: { serverID, returnCode: json.returncode }
-    //             })
-    //         });
-    //     });
+    // return {
+    //     type: UPDATE_SERVER,
+    //     payload: { serverID, returnCode: "SUCCESS" }
     // }
+    return (dispatch) => {
+        scalelite.disableServer(serverID).then((json) => {
+            console.log("json = ", json);
+            console.log("Uspjesno disable-ovan server ID = ", serverID);
+            dispatch({
+                type: UPDATE_SERVER,
+                payload: { serverID, returnCode: json.returncode }
+            })
+        });
+    }
 }
 
 export const deleteServer = (serverID) => {
