@@ -51,7 +51,7 @@ export const addServer = () => {
                 scalelite.enableServer(serverID);
                 dispatch({
                     type: ADD_SERVER,
-                    payload: { serverID }
+                    payload: { serverID, returnCode: json.returncode }
                 })
             })
     }
@@ -78,24 +78,24 @@ export const enableServer = (serverID) => {
 
 export const disableServer = (serverID) => {
     console.log("disable", serverID);
-    // return {
-    //     type: UPDATE_SERVER,
-    //     payload: { serverID, returnCode: "SUCCESS" }
-    // }
-    return (dispatch) => {
-        scalelite.disableServer(serverID).then((json) => {
-            console.log("json = ", json);
-
-            scalelite.getServerInfo(serverID).then((json) => {
-                console.log("Server Info: ", json.server);
-                console.log("Uspjesno disable-ovan server ID = ", serverID);
-                dispatch({
-                    type: UPDATE_SERVER,
-                    payload: { serverID, returnCode: json.returncode }
-                })
-            });
-        });
+    return {
+        type: UPDATE_SERVER,
+        payload: { serverID, returnCode: "SUCCESS" }
     }
+    // return (dispatch) => {
+    //     scalelite.disableServer(serverID).then((json) => {
+    //         console.log("json = ", json);
+
+    //         scalelite.getServerInfo(serverID).then((json) => {
+    //             console.log("Server Info: ", json.server);
+    //             console.log("Uspjesno disable-ovan server ID = ", serverID);
+    //             dispatch({
+    //                 type: UPDATE_SERVER,
+    //                 payload: { serverID, returnCode: json.returncode }
+    //             })
+    //         });
+    //     });
+    // }
 }
 
 export const deleteServer = (serverID) => {

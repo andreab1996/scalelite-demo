@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { closeAlert, getServers, addServer } from '../actions';
 import AntdTable from './AntdTable';
 import Button from '@material-ui/core/Button';
+import { StatusCode } from '../util/StatusCode';
 
 class Server extends Component {
     UNSAFE_componentWillMount() {
@@ -28,33 +29,30 @@ class Server extends Component {
     render() {
         return (
             <div>
-                {this.props.update === "SUCCESS" ?
+                {this.props.update ?
                     <Alert
-                        message="Success"
-                        description="Server has been successfully updated."
+                        message={
+                            this.props.update === StatusCode.successCreate
+                                || this.props.update === StatusCode.successUpdate
+                                || this.props.update === StatusCode.successDelete
+                                ? "Success" : "Error"}
+                        description={
+                            this.props.update === StatusCode.successCreate
+                                ? "Server has been successfully created and enabled."
+                                : this.props.update === StatusCode.successUpdate
+                                    ? "Server has been successfully updated."
+                                    : this.props.update === StatusCode.successDelete
+                                        ? "Server has been successfully deleted."
+                                        : this.props.update === StatusCode.error
+                                            ? "Server has been successfully deleted."
+                                            : "Something went wrong! Try again."}
                         type="success"
                         showIcon
                         closable
                         closeAlert
                         onClick={this.onCloseAlert}
                     />
-                    : this.props.update === "ERROR" ?
-                        <Alert
-                            message="Error"
-                            description="Something went wrong! Try again."
-                            type="error"
-                            showIcon
-                            closable
-                            onClick={this.onCloseAlert}
-                        /> : this.props.update === "SUCCESS_CREATE" ?
-                            <Alert
-                                message="Success"
-                                description="Server has been successfully created and enabled."
-                                type="success"
-                                showIcon
-                                closable
-                                onClick={this.onCloseAlert}
-                            /> : []
+                    : []
                 }
                 <div style={{ margin: "30px" }}>
                     <AntdTable children={this.props.data} />

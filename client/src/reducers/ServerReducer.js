@@ -5,8 +5,9 @@ import {
     FETCH_SERVERS,
     UPDATE_SERVER
 } from '../actions/types';
+import { StatusCode } from '../util/StatusCode';
 
-const INITIAL_STATE = { data: [], update: '' };
+const INITIAL_STATE = { data: [], update: '', type: '' };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -32,15 +33,17 @@ export default (state = INITIAL_STATE, action) => {
             })
             return { ...state };
         case ADD_SERVER:
-            return { ...state, update: "SUCCESS_CREATE" };;
+            state.type = action.payload.returnCode === StatusCode.success ? StatusCode.success : StatusCode.error;
+            return { ...state, update: action.payload.returnCode === StatusCode.success ? StatusCode.successCreate : StatusCode.error };
         case UPDATE_SERVER:
             let { serverID, returnCode } = action.payload;
-            return { ...state, update: returnCode };
+            state.type = returnCode === StatusCode.success ? StatusCode.success : StatusCode.error
+            return { ...state, update: returnCode === StatusCode.success ? StatusCode.successUpdate : StatusCode.error };
         case DELETE_SERVER:
-            console.log(action.payload)
-            return state;
+            state.type = returnCode === StatusCode.successCreate ? "succes" : "error";
+            return { ...state, update: returnCode === StatusCode.success ? StatusCode.successDelete : StatusCode.error };
         case CLOSE_ALERT:
-            return { ...state, update: action.payload };
+            return { ...state, update: action.payload, type: action.payload };
         default:
             return state;
     }
