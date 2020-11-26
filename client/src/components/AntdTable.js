@@ -55,7 +55,7 @@ class AntdTable extends Component {
                     id="servers"
                     columns={columns}
                     expandable={{
-                        expandedRowRender: (record, i) =>
+                        expandedRowRender: (record) =>
                             <p style={{ margin: 0 }}>
                                 Load Multiplier: {record.loadMultiplier}, Load: {record.load}
                             </p>,

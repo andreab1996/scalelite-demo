@@ -28,8 +28,9 @@ export default (state = INITIAL_STATE, action) => {
                 serverUrl: "https://vcs1.etfbl.net/bigbluebutton/api/",
             }];
             // let servers = action.payload;
+            let i = 0;
             state.data = servers.map(s => {
-                return { ...s, expandable: false, action: "Actions" }
+                return { ...s, expandable: false, action: "Actions", key: ++i }
             })
             return { ...state };
         case ADD_SERVER:
