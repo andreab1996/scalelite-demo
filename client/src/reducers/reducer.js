@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import TextInputReducer from './TextInputReducer';
+import ServerReducer from './ServerReducer';
 
 const rootReducer = combineReducers({
-	textInput: TextInputReducer,
+	server: ServerReducer,
 });
 
 export default rootReducer;

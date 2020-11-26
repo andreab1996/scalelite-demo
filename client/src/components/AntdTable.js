@@ -69,10 +69,10 @@ class AntdTable extends Component {
     }
 }
 
-const mapStateToProps = ({ textInput }) => {
-    const { firstName, lastName, data } = textInput;
+const mapStateToProps = ({ server }) => {
+    const { data } = server;
 
-    return { firstName, lastName, data };
+    return { data };
 }
 
 export default connect(

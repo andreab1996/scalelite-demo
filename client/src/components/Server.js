@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { closeAlert, getServers, addServer } from '../actions';
 import AntdTable from './AntdTable';
 import Button from '@material-ui/core/Button';
-class ReduxExample extends Component {
+
+class Server extends Component {
     UNSAFE_componentWillMount() {
         this.props.getServers();
     }
@@ -74,8 +75,8 @@ class ReduxExample extends Component {
     }
 }
 
-const mapStateToProps = ({ textInput }) => {
-    const { data, update } = textInput;
+const mapStateToProps = ({ server }) => {
+    const { data, update } = server;
 
     return { data, update };
 }
@@ -83,4 +84,4 @@ const mapStateToProps = ({ textInput }) => {
 export default connect(
     mapStateToProps,
     { getServers, closeAlert, addServer }
-)(hot(ReduxExample));
+)(hot(Server));

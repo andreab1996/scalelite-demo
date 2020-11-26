@@ -3,9 +3,6 @@ import axios from 'axios';
 import {
     ADD_SERVER,
     CLOSE_ALERT,
-
-
-
     FETCH_SERVERS,
     UPDATE_SERVER
 } from './types';
@@ -21,15 +18,15 @@ const scalelite = new Scalelite(
 export const getServers = () => {
     return (dispatch) => {
 
-        scalelite.getServers().then((json) => {
-            console.log("json = ", json);
-            console.log("servers = ", json.servers);
-            dispatch(receiveServers(json.servers))
-        })
+        // scalelite.getServers().then((json) => {
+        //     console.log("json = ", json);
+        //     console.log("servers = ", json.servers);
+        //     dispatch(receiveServers(json.servers))
+        // })
 
-        // axios.get('https://jsonplaceholder.typicode.com/todos')
-        //     .then((response) => dispatch(receiveServers(response.data)))
-        //     .catch((error) => console.log(error))
+        axios.get('https://jsonplaceholder.typicode.com/todos')
+            .then((response) => dispatch(receiveServers(response.data)))
+            .catch((error) => console.log(error))
     }
 }
 
