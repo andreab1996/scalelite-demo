@@ -82,6 +82,10 @@ export const enableServer = (serverID) => {
 
 export const disableServer = (serverID) => {
     console.log("disable", serverID);
+    // return ({
+    //     type: UPDATE_SERVER,
+    //     payload: { serverID: 1, returnCode: "SUCCESS" }
+    // })
     return (dispatch) => {
         scalelite.disableServer(serverID).then((json) => {
             console.log("json = ", json);

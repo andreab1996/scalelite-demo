@@ -15,6 +15,7 @@ import {
 } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
 import { StatusCode } from '../util/StatusCode';
+import ReactJsAlert from "reactjs-alert"
 class Server extends Component {
     UNSAFE_componentWillMount() {
         this.props.getServers();
@@ -62,13 +63,22 @@ class Server extends Component {
                 overflow: "scroll",
             }}>
                 {this.props.update ?
-                    <Alert
-                        message={
-                            this.props.update === StatusCode.successCreate
-                                || this.props.update === StatusCode.successUpdate
-                                || this.props.update === StatusCode.successDelete
-                                ? "Success" : "Error"}
-                        description={
+                    <ReactJsAlert
+                        type={this.props.update === StatusCode.successCreate
+                            || this.props.update === StatusCode.successUpdate
+                            || this.props.update === StatusCode.successDelete
+                            ? "success"
+                            : this.props.update === StatusCode.error
+                                ? "error" : "warning"}  // success, warning, error, info
+                        title={this.props.update === StatusCode.successCreate
+                            || this.props.update === StatusCode.successUpdate
+                            || this.props.update === StatusCode.successDelete
+                            ? "Success"
+                            : this.props.update === StatusCode.error
+                                ? "Error" : "Warning"}  // title you want to display
+                        status={true}   // true or false
+                        color="#1d36ad"
+                        quote={
                             this.props.update === StatusCode.successCreate
                                 ? "Server has been successfully created and enabled."
                                 : this.props.update === StatusCode.successUpdate
@@ -78,12 +88,36 @@ class Server extends Component {
                                         : this.props.update === StatusCode.error
                                             ? "Server has been successfully deleted."
                                             : "Something went wrong! Try again."}
-                        type="success"
-                        showIcon
-                        closable
-                        closeAlert
-                        onClick={this.onCloseAlert}
+                        Close={() => this.onCloseAlert()}   // callback method for hide
+                    // onClick={this.onCloseAlert}
                     />
+                    // <Alert
+                    //     message={
+                    //         this.props.update === StatusCode.successCreate
+                    //             || this.props.update === StatusCode.successUpdate
+                    //             || this.props.update === StatusCode.successDelete
+                    //             ? "Success" : "Error"}
+                    //     description={
+                    //         this.props.update === StatusCode.successCreate
+                    //             ? "Server has been successfully created and enabled."
+                    //             : this.props.update === StatusCode.successUpdate
+                    //                 ? "Server has been successfully updated."
+                    //                 : this.props.update === StatusCode.successDelete
+                    //                     ? "Server has been successfully deleted."
+                    //                     : this.props.update === StatusCode.error
+                    //                         ? "Server has been successfully deleted."
+                    //                         : "Something went wrong! Try again."}
+                    //     type={this.props.update === StatusCode.successCreate
+                    //         || this.props.update === StatusCode.successUpdate
+                    //         || this.props.update === StatusCode.successDelete
+                    //         ? "success"
+                    //         : this.props.update === StatusCode.error
+                    //             ? "error" : "warning"}
+                    //     showIcon
+                    //     closable
+                    //     closeAlert
+                    //     onClick={this.onCloseAlert}
+                    // />
                     : []
                 }
                 <h1 style={{ textAlign: "center", color: "white" }}>SERVERS</h1>
