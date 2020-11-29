@@ -9,3 +9,5 @@ export const CLOSE_ALERT = 'close_alert';
 export const USERNAME_CHANGED = 'username_changed';
 export const PASSWORD_CHANGED = 'password_changed';
 export const LOGIN = 'login';
+export const CHECK_COOKIES = 'check_cookies';
+export const NO_SECRET = 'no_secret';

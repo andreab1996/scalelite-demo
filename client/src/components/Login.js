@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
-import { passwordChanged, usernameChanged, login } from '../actions';
+import { passwordChanged, usernameChanged, login, checkCookies } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
 import { Redirect } from 'react-router-dom'
 
 class Login extends Component {
+    UNSAFE_componentWillMount() {
+        this.props.checkCookies();
+        console.log(this.props.hasCookies, this.props.redirectTo)
+    }
+
     onUsernameChanged(e) {
         console.log(e.target.value)
         this.props.usernameChanged(e.target.value);
@@ -17,7 +22,7 @@ class Login extends Component {
     }
 
     onLogin(e) {
-        this.props.login();
+        this.props.login(this.props.username);
     }
 
     render() {
@@ -25,31 +30,39 @@ class Login extends Component {
             <div style={backGround}>
                 <div style={centeredDiv}>
                     <h1 style={loginText}>Login</h1>
-                    <div style={{ flexDirection: "row", marginTop: "20px" }}>
+                    <div style={{ marginTop: "20px" }}>
                         {/* <FontAwesomeIcon icon={faUser} /> */}
                         {/* <i className="fa fa-user"></i> */}
                         <input
                             type="text"
-                            placeholder="Username"
+                            placeholder="Please enter secret key"
                             style={inputStyle}
                             onChange={(e) => { this.onUsernameChanged(e) }}
+
                         />
                     </div>
-                    <div style={{ opacity: "0.9", flexDirection: "row", marginTop: "20px" }}>
+                    <div style={{ color: "red", fontSize: "18px" }}>
+                        <span>{this.props.error}</span>
+                    </div>
+                    {/* <div style={{ opacity: "0.9", flexDirection: "row", marginTop: "20px" }}>
                         <input
                             onChange={(e) => { this.onPasswordChange(e) }}
                             type="password"
                             placeholder="Password"
                             style={inputStyle}
                         />
-                    </div>
+                    </div> */}
                     <button
                         onClick={() => this.onLogin()}
                         style={buttonStyle}
                     >
                         LOGIN
                     </button>
-                    {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : ""}
+                    {
+                        this.props.redirectTo !== null || this.props.hasCookies === true
+                            ? <Redirect to={this.props.redirectTo} />
+                            : ""
+                    }
                 </div >
             </div >
         );
@@ -63,8 +76,8 @@ const style = {
 const centeredDiv = {
     top: "50%",
     left: "50%",
-    width: "500px",
-    height: "500px",
+    width: "400px",
+    height: "350px",
     position: "fixed",
     background: "rgb(11, 83, 168)",
     opacity: "0.7",
@@ -84,7 +97,7 @@ const backGround = {
 const loginText = {
     textAlign: "center",
     color: "white",
-    marginTop: "100px"
+    marginTop: "80px"
 }
 
 const inputStyle = {
@@ -107,7 +120,7 @@ const buttonStyle = {
     padding: "0.25em 1em",
     border: "2px solid rgb(52, 118, 240)",
     borderRadius: "10px",
-    marginTop: "50px",
+    marginTop: "20px",
     fontWeight: "600",
     height: "40px",
 }
@@ -120,7 +133,9 @@ const mapStateToProps = ({ login }) => {
         confirmPassword,
         samePassword,
         registration,
-        redirectTo
+        redirectTo,
+        hasCookies,
+        error
     } = login;
 
     return {
@@ -130,7 +145,9 @@ const mapStateToProps = ({ login }) => {
         confirmPassword,
         samePassword,
         registration,
-        redirectTo
+        redirectTo,
+        hasCookies,
+        error
     };
 };
 
@@ -138,4 +155,5 @@ export default connect(mapStateToProps, {
     usernameChanged,
     passwordChanged,
     login,
+    checkCookies
 })(hot(Login));
