@@ -1,3 +1,5 @@
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Alert } from 'antd';
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
@@ -5,17 +7,14 @@ import { connect } from 'react-redux';
 import {
     addServer,
     closeAlert,
-    getServers,
+    deleteServer,
     disableServer,
     enableServer,
-    deleteServer,
-    getMeetings
+    getMeetings,
+    getServers
 } from '../actions';
-import { StatusCode } from '../util/StatusCode';
-import AntdTable from './AntdTable';
 import loginBackground from '../util/loginBackground.jpg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { StatusCode } from '../util/StatusCode';
 class Server extends Component {
     UNSAFE_componentWillMount() {
         this.props.getServers();
@@ -57,8 +56,6 @@ class Server extends Component {
         return (
             <div style={{
                 background: `url(${loginBackground})`,
-                // background: "gray",
-                // opacity: "0.5",
                 height: "100vh",
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
@@ -107,7 +104,7 @@ class Server extends Component {
                                 }
                                 <div style={{ marginTop: "15px" }}>
                                     <span style={text}>FQDN: </span>
-                                    {server.serverUrl}
+                                    <span style={{ margin: "15px 5px 15px 15px" }}>{server.serverUrl}</span>
                                 </div>
                                 <div style={{ marginTop: "5px" }}>
                                     <span style={text}>Status: </span>
@@ -130,7 +127,7 @@ class Server extends Component {
                                     marginTop: "10px",
                                     float: "right"
                                 }}>
-                                    {server.enabled === true && server.online === true ?
+                                    {/* {server.enabled === true && server.online === true ?
                                         <button
                                             onClick={(e) => { this.onGetMeetings(server) }}
                                             style={{
@@ -146,7 +143,7 @@ class Server extends Component {
                                             Show meetings
                                     </button>
                                         : []
-                                    }
+                                    } */}
                                     <button
                                         onClick={(e) => { this.onUpdateServer(server) }}
                                         style={{
@@ -156,12 +153,12 @@ class Server extends Component {
                                             margin: "5px",
                                             padding: "0.25em 1em",
                                             border: "2px solid #4682B4",
-                                            borderRadius: "3px",
+                                            borderRadius: "5px",
                                         }}
                                     >
                                         {server.enabled === true ? "Disable" : "Enable"}
                                     </button>
-                                    {/* <button
+                                    <button
                                         onClick={(e) => { this.onDeleteServer(server) }}
                                         style={{
                                             background: "#DC143C",
@@ -170,16 +167,15 @@ class Server extends Component {
                                             margin: "5px",
                                             padding: "0.25em 1em",
                                             border: "2px solid #DC143C",
-                                            borderRadius: "3px",
+                                            borderRadius: "5px",
                                         }}
                                     >
                                         Delete
-                                    </button> */}
+                                    </button>
                                 </div>
                             </div>
                         )
                     })}
-                    {/* <div style={section}> */}
                     <div style={{
                         display: "flex", flexWrap: "wrap",
                         justifyContent: "center",
@@ -188,7 +184,7 @@ class Server extends Component {
                         lineHeight: "200px",
                         margin: "20px",
                         width: "300px",
-                        height: "200px",
+                        height: "220px",
                         background: "white",
                         opacity: "0.85",
                         borderRadius: "20px",
@@ -201,26 +197,6 @@ class Server extends Component {
                             color="grey"
                             onClick={this.onAddServer} />
                     </div>
-                    {/* </div> */}
-                    {/* <div style={{ margin: "30px" }}>
-                    <AntdTable children={this.props.data} />
-                </div> */}
-                    {/* <div style={{ margin: "30px" }}>
-                    <button
-                        onClick={this.onAddServer}
-                        style={{
-                            background: "rgb(52, 118, 240)",
-                            color: "white",
-                            fontSize: "1em",
-                            margin: "1em",
-                            padding: "0.25em 1em",
-                            border: "2px solid rgb(75, 134, 245)",
-                            borderRadius: "3px",
-                        }}
-                    >
-                        Add new Server
-                    </button>
-                </div> */}
                 </div >
             </div>
         )
@@ -230,8 +206,7 @@ class Server extends Component {
 const section = {
     margin: "20px",
     width: "300px",
-    height: "250px",
-    // background: "rgb(11, 83, 168)",
+    height: "220px",
     background: "white",
     opacity: "0.8",
     borderRadius: "20px",
@@ -275,5 +250,13 @@ const mapStateToProps = ({ server }) => {
 
 export default connect(
     mapStateToProps,
-    { getServers, closeAlert, addServer, disableServer, enableServer, deleteServer, getMeetings }
+    {
+        getServers,
+        closeAlert,
+        addServer,
+        disableServer,
+        enableServer,
+        deleteServer,
+        getMeetings
+    }
 )(hot(Server));
