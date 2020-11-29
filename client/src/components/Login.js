@@ -31,8 +31,6 @@ class Login extends Component {
                 <div style={centeredDiv}>
                     <h1 style={loginText}>Login</h1>
                     <div style={{ marginTop: "20px" }}>
-                        {/* <FontAwesomeIcon icon={faUser} /> */}
-                        {/* <i className="fa fa-user"></i> */}
                         <input
                             type="text"
                             placeholder="Please enter secret key"
@@ -44,14 +42,6 @@ class Login extends Component {
                     <div style={{ color: "red", fontSize: "18px" }}>
                         <span>{this.props.error}</span>
                     </div>
-                    {/* <div style={{ opacity: "0.9", flexDirection: "row", marginTop: "20px" }}>
-                        <input
-                            onChange={(e) => { this.onPasswordChange(e) }}
-                            type="password"
-                            placeholder="Password"
-                            style={inputStyle}
-                        />
-                    </div> */}
                     <button
                         onClick={() => this.onLogin()}
                         style={buttonStyle}
