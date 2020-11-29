@@ -19,8 +19,8 @@ const scalelite = new Scalelite(
 export const getServers = () => {
     return (dispatch) => {
         // scalelite.getServers().then((json) => {
-        //     console.log("json = ", json);
         //     console.log("servers = ", json.servers);
+        //     let servers = json.servers;
         //     dispatch(receiveServers(json.servers))
         // })
 
@@ -82,10 +82,6 @@ export const enableServer = (serverID) => {
 
 export const disableServer = (serverID) => {
     console.log("disable", serverID);
-    // return {
-    //     type: UPDATE_SERVER,
-    //     payload: { serverID, returnCode: "SUCCESS" }
-    // }
     return (dispatch) => {
         scalelite.disableServer(serverID).then((json) => {
             console.log("json = ", json);

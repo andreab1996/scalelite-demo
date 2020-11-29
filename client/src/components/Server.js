@@ -105,8 +105,8 @@ class Server extends Component {
                                     ? <div style={enabled}></div>
                                     : <div style={disabled}></div>
                                 }
-                                <div style={{ marginTop: "10px" }}>
-                                    <span style={text}>Server URL: </span>
+                                <div style={{ marginTop: "15px" }}>
+                                    <span style={text}>FQDN: </span>
                                     {server.serverUrl}
                                 </div>
                                 <div style={{ marginTop: "5px" }}>
@@ -114,9 +114,17 @@ class Server extends Component {
                                     {server.online === true ? "Online" : "Offline"}
                                 </div>
                                 <div style={{ marginTop: "5px" }}>
-                                    <span style={text}>Enable: </span>
+                                    <span style={text}>Enabled: </span>
                                     {/* <span style={dot}></span> */}
                                     {server.enabled === true ? "Yes" : "No"}
+                                </div>
+                                <div style={{ marginTop: "5px" }}>
+                                    <span style={text}>Load Multiplier: </span>
+                                    {server.loadMultiplier}
+                                </div>
+                                <div style={{ marginTop: "5px" }}>
+                                    <span style={text}>Number of conferences: </span>
+                                    {server.load}
                                 </div>
                                 <div style={{
                                     marginTop: "10px",
@@ -222,7 +230,7 @@ class Server extends Component {
 const section = {
     margin: "20px",
     width: "300px",
-    height: "200px",
+    height: "250px",
     // background: "rgb(11, 83, 168)",
     background: "white",
     opacity: "0.8",
