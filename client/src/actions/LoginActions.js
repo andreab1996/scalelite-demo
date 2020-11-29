@@ -27,7 +27,7 @@ export const checkCookies = () => {
 export const login = (secret) => {
     if (secret !== "") {
         let expires = new Date();
-        expires.setTime(expires.getTime() + (1 * 60 * 1000));
+        expires.setTime(expires.getTime() + (60 * 60 * 1000));
         cookies.set("secret", secret, { path: "/admin-andrea", expires });
 
         return {
