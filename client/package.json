@@ -29,6 +29,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
     "scalelite-js": "^0.0.1",
+    "sha1": "^1.1.1",
     "web-vitals": "^0.2.4",
     "xml-js": "^1.6.11"
   },

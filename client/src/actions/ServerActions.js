@@ -6,6 +6,7 @@ import {
     FETCH_SERVERS,
     UPDATE_SERVER
 } from './types';
+let sha1 = require('sha1');
 
 const Scalelite = require('scalelite-js').ScaleliteApi
 const scalelite = new Scalelite(
@@ -17,7 +18,6 @@ const scalelite = new Scalelite(
 
 export const getServers = () => {
     return (dispatch) => {
-
         // scalelite.getServers().then((json) => {
         //     console.log("json = ", json);
         //     console.log("servers = ", json.servers);
@@ -27,6 +27,14 @@ export const getServers = () => {
         axios.get('https://jsonplaceholder.typicode.com/todos')
             .then((response) => dispatch(receiveServers(response.data)))
             .catch((error) => console.log(error))
+    }
+}
+
+export const getMeetings = (serverID) => {
+    return (dispatch) => {
+        scalelite.getServerMeetings(serverID).then((json) => {
+            console.log(json);
+        });
     }
 }
 
