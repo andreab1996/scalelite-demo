@@ -1,9 +1,9 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Alert } from 'antd';
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import {
     addServer,
     closeAlert,
@@ -14,8 +14,6 @@ import {
     getServers
 } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
-import { StatusCode } from '../util/StatusCode';
-import ReactJsAlert from "reactjs-alert"
 class Server extends Component {
     UNSAFE_componentWillMount() {
         this.props.getServers();
@@ -62,64 +60,6 @@ class Server extends Component {
                 backgroundRepeat: 'no-repeat',
                 overflow: "scroll",
             }}>
-                {this.props.update ?
-                    <ReactJsAlert
-                        type={this.props.update === StatusCode.successCreate
-                            || this.props.update === StatusCode.successUpdate
-                            || this.props.update === StatusCode.successDelete
-                            ? "success"
-                            : this.props.update === StatusCode.error
-                                ? "error" : "warning"}  // success, warning, error, info
-                        title={this.props.update === StatusCode.successCreate
-                            || this.props.update === StatusCode.successUpdate
-                            || this.props.update === StatusCode.successDelete
-                            ? "Success"
-                            : this.props.update === StatusCode.error
-                                ? "Error" : "Warning"}  // title you want to display
-                        status={true}   // true or false
-                        color="#1d36ad"
-                        quote={
-                            this.props.update === StatusCode.successCreate
-                                ? "Server has been successfully created and enabled."
-                                : this.props.update === StatusCode.successUpdate
-                                    ? "Server has been successfully updated."
-                                    : this.props.update === StatusCode.successDelete
-                                        ? "Server has been successfully deleted."
-                                        : this.props.update === StatusCode.error
-                                            ? "Server has been successfully deleted."
-                                            : "Something went wrong! Try again."}
-                        Close={() => this.onCloseAlert()}   // callback method for hide
-                    // onClick={this.onCloseAlert}
-                    />
-                    // <Alert
-                    //     message={
-                    //         this.props.update === StatusCode.successCreate
-                    //             || this.props.update === StatusCode.successUpdate
-                    //             || this.props.update === StatusCode.successDelete
-                    //             ? "Success" : "Error"}
-                    //     description={
-                    //         this.props.update === StatusCode.successCreate
-                    //             ? "Server has been successfully created and enabled."
-                    //             : this.props.update === StatusCode.successUpdate
-                    //                 ? "Server has been successfully updated."
-                    //                 : this.props.update === StatusCode.successDelete
-                    //                     ? "Server has been successfully deleted."
-                    //                     : this.props.update === StatusCode.error
-                    //                         ? "Server has been successfully deleted."
-                    //                         : "Something went wrong! Try again."}
-                    //     type={this.props.update === StatusCode.successCreate
-                    //         || this.props.update === StatusCode.successUpdate
-                    //         || this.props.update === StatusCode.successDelete
-                    //         ? "success"
-                    //         : this.props.update === StatusCode.error
-                    //             ? "error" : "warning"}
-                    //     showIcon
-                    //     closable
-                    //     closeAlert
-                    //     onClick={this.onCloseAlert}
-                    // />
-                    : []
-                }
                 <h1 style={{ textAlign: "center", color: "white" }}>SERVERS</h1>
                 <div style={{
                     display: "flex", flexWrap: "wrap",
@@ -137,8 +77,8 @@ class Server extends Component {
                                     : <div style={disabled}></div>
                                 }
                                 <div style={{ marginTop: "15px" }}>
-                                    <span style={text}>FQDN: </span>
-                                    <span style={{ margin: "15px 5px 15px 15px" }}>{server.serverUrl}</span>
+                                    <span style={text}>Server: </span>
+                                    <span style={{ margin: "15px 5px 15px 5px" }}>{server.serverUrl.split("/")[2]}</span>
                                 </div>
                                 <div style={{ marginTop: "5px" }}>
                                     <span style={text}>Status: </span>
@@ -146,7 +86,6 @@ class Server extends Component {
                                 </div>
                                 <div style={{ marginTop: "5px" }}>
                                     <span style={text}>Enabled: </span>
-                                    {/* <span style={dot}></span> */}
                                     {server.enabled === true ? "Yes" : "No"}
                                 </div>
                                 <div style={{ marginTop: "5px" }}>
@@ -161,23 +100,6 @@ class Server extends Component {
                                     marginTop: "10px",
                                     float: "right"
                                 }}>
-                                    {/* {server.enabled === true && server.online === true ?
-                                        <button
-                                            onClick={(e) => { this.onGetMeetings(server) }}
-                                            style={{
-                                                background: "#4682B4",
-                                                color: "white",
-                                                fontSize: "1em",
-                                                margin: "5px",
-                                                padding: "0.25em 1em",
-                                                border: "2px solid #4682B4",
-                                                borderRadius: "3px",
-                                            }}
-                                        >
-                                            Show meetings
-                                    </button>
-                                        : []
-                                    } */}
                                     <button
                                         onClick={(e) => { this.onUpdateServer(server) }}
                                         style={{
@@ -231,6 +153,11 @@ class Server extends Component {
                             color="grey"
                             onClick={this.onAddServer} />
                     </div>
+                    {
+                        this.props.redirectTo !== null
+                            ? <Redirect to={this.props.redirectTo} />
+                            : ""
+                    }
                 </div >
             </div>
         )
@@ -277,9 +204,9 @@ const dot = {
 }
 
 const mapStateToProps = ({ server }) => {
-    const { data, update } = server;
+    const { data, update, redirectTo } = server;
 
-    return { data, update };
+    return { data, update, redirectTo };
 }
 
 export default connect(

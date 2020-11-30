@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
     ADD_SERVER,
     CLOSE_ALERT,
+    FETCH_MEETINGS,
     FETCH_SERVERS,
     UPDATE_SERVER
 } from './types';
@@ -31,11 +32,20 @@ export const getServers = () => {
 }
 
 export const getMeetings = (serverID) => {
-    return (dispatch) => {
-        scalelite.getServerMeetings(serverID).then((json) => {
-            console.log(json);
-        });
+    return {
+        type: FETCH_MEETINGS,
+        payload: { meetings: [], serverID }
     }
+    // return (dispatch) => {
+    //     scalelite.getServerMeetings(serverID).then((json) => {
+    //         console.log(json);
+
+    //         dispatch({
+    //             type: FETCH_MEETINGS,
+    //             payload: { meetings: json.meetings, serverID }
+    //         })
+    //     });
+    // }
 }
 
 export const receiveServers = (data) => {
