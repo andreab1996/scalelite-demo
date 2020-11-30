@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
 import loginBackground from '../util/loginBackground.jpg';
+import { getMeetings } from '../actions';
 
 let count = 0;
 class Meetings extends Component {
+    UNSAFE_componentWillMount() {
+        this.props.getMeetings();
+    }
     render() {
         return (
             <div style={{
@@ -34,7 +38,7 @@ class Meetings extends Component {
                                 display: "flex",
                                 flexDirection: "row",
                             }}>
-                                <div style={{ margin: "10px", width: "50%" }}>
+                                <div style={{ margin: "10px", width: "33%" }}>
                                     <span style={title}>Basic Information:</span>
                                     <div style={{ marginTop: "15px" }}>
                                         <span style={text}>Meeting name: </span>
@@ -69,7 +73,7 @@ class Meetings extends Component {
                                         <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.hasUserJoined ? "Yes" : "No"}</span>
                                     </div>
                                 </div>
-                                <div style={{ margin: "10px" }}>
+                                <div style={{ margin: "10px", width: "33%" }}>
                                     <span style={title}>Attendees:</span>
                                     <div style={{ marginTop: "10px" }}>
                                         <span style={text}>Number of attendees: </span>
@@ -89,18 +93,28 @@ class Meetings extends Component {
                                                         <span style={text}>Role: </span>
                                                         <span style={{ margin: "15px 5px 15px 5px" }}>{attendee.role}</span>
                                                     </div>
-                                                    {/* <div style={{ marginTop: "15px" }}>
-                                                        <span style={text}>Listening: </span>
-                                                        <span style={{ margin: "15px 5px 15px 5px" }}>{attendee.isListeningOnly ? "Yes" : "No"}</span>
-                                                    </div>
-                                                    <div style={{ marginTop: "15px" }}>
-                                                        <span style={text}>Presenter: </span>
-                                                        <span style={{ margin: "15px 5px 15px 5px" }}>{attendee.isPresenter ? "Yes" : "No"}</span>
-                                                    </div> */}
                                                 </div>
                                             )
                                         })}
-
+                                </div>
+                                <div style={{ margin: "10px", width: "33%" }}>
+                                    <span style={title}>Metadata:</span>
+                                    <div style={{ marginTop: "10px" }}>
+                                        <span style={text}>Context: </span>
+                                        <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee?.length ? meeting.attendees.attendee?.length : 0}</span>
+                                    </div>
+                                    <div style={{ marginTop: "10px" }}>
+                                        <span style={text}>Description: </span>
+                                        <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee?.length ? meeting.attendees.attendee?.length : 0}</span>
+                                    </div>
+                                    <div style={{ marginTop: "10px" }}>
+                                        <span style={text}>Server: </span>
+                                        <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee?.length ? meeting.attendees.attendee?.length : 0}</span>
+                                    </div>
+                                    <div style={{ marginTop: "10px" }}>
+                                        <span style={text}>Recording name: </span>
+                                        <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee?.length ? meeting.attendees.attendee?.length : 0}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -139,12 +153,12 @@ const title = {
     textDecoration: "underline"
 }
 
-const mapStateToProps = ({ server }) => {
+const mapStateToProps = ({ server, meeting }) => {
     const { meetings } = server;
-
-    return { meetings };
+    const { meetingRefresh } = meeting;
+    return { meetings, meetingRefresh };
 };
 
 export default connect(mapStateToProps, {
-
+    getMeetings
 })(hot(Meetings));
