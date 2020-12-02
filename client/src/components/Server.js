@@ -11,9 +11,12 @@ import {
     disableServer,
     enableServer,
     getMeetings,
-    getServers
+    getServers,
+    showInfoMessage
 } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
+import { StatusCode } from '../util/StatusCode';
+import ReactJsAlert from "reactjs-alert";
 class Server extends Component {
     UNSAFE_componentWillMount() {
         this.props.getServers();
@@ -51,6 +54,10 @@ class Server extends Component {
         this.props.getMeetings(server.serverID);
     }
 
+    onShowInfoMessage = () => {
+        this.props.showInfoMessage("The server must be online and allow meetings to be held.");
+    }
+
     render() {
         return (
             <div style={{
@@ -60,6 +67,35 @@ class Server extends Component {
                 backgroundRepeat: 'no-repeat',
                 overflow: "scroll",
             }}>
+                {this.props.update ?
+                    <ReactJsAlert
+                        type={this.props.update === StatusCode.successCreate
+                            || this.props.update === StatusCode.successUpdate
+                            || this.props.update === StatusCode.successDelete
+                            ? "success"
+                            : this.props.update === StatusCode.error
+                                ? "error" : "warning"}  // success, warning, error, info	
+                        title={this.props.update === StatusCode.successCreate
+                            || this.props.update === StatusCode.successUpdate
+                            || this.props.update === StatusCode.successDelete
+                            ? "Success"
+                            : this.props.update === StatusCode.error
+                                ? "Error" : "Warning"}  // title you want to display	
+                        status={true}   // true or false	
+                        color="#1d36ad"
+                        quote={
+                            this.props.update === StatusCode.successCreate
+                                ? "Server has been successfully created and enabled."
+                                : this.props.update === StatusCode.successUpdate
+                                    ? "Server has been successfully updated."
+                                    : this.props.update === StatusCode.successDelete
+                                        ? "Server has been successfully deleted."
+                                        : this.props.update === StatusCode.error
+                                            ? "Server has been successfully deleted."
+                                            : "Something went wrong! Try again."}
+                        Close={() => this.onCloseAlert()}   // callback method for hide	
+                    /> : []
+                }
                 <h1 style={{ textAlign: "center", color: "white" }}>SERVERS</h1>
                 <div style={{
                     display: "flex", flexWrap: "wrap",
@@ -71,8 +107,23 @@ class Server extends Component {
                         return (
                             <div
                                 style={section}
-                                onDoubleClick={() => this.onGetMeetings(server)}>
-                                { server.enabled === true
+                                onDoubleClick={() => {
+                                    if (server.enabled && server.online)
+                                        this.onGetMeetings(server);
+                                    else
+                                        this.onShowInfoMessage();
+                                }}>
+                                {this.props.message !== ''
+                                    ? <ReactJsAlert
+                                        type="info"
+                                        title="Information"
+                                        status={true}
+                                        color="#1d36ad"
+                                        quote={this.props.message}
+                                        Close={() => this.onCloseAlert()}
+                                    />
+                                    : ''}
+                                {server.enabled === true
                                     ? <div style={enabled}></div>
                                     : <div style={disabled}></div>
                                 }
@@ -204,9 +255,9 @@ const dot = {
 }
 
 const mapStateToProps = ({ server }) => {
-    const { data, update, redirectTo } = server;
+    const { data, update, redirectTo, message } = server;
 
-    return { data, update, redirectTo };
+    return { data, update, redirectTo, message };
 }
 
 export default connect(
@@ -218,6 +269,7 @@ export default connect(
         disableServer,
         enableServer,
         deleteServer,
-        getMeetings
+        getMeetings,
+        showInfoMessage
     }
 )(hot(Server));

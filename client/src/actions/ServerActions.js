@@ -5,6 +5,7 @@ import {
     CLOSE_ALERT,
     FETCH_MEETINGS,
     FETCH_SERVERS,
+    SHOW_MESSAGE,
     UPDATE_SERVER
 } from './types';
 let sha1 = require('sha1');
@@ -19,33 +20,23 @@ const scalelite = new Scalelite(
 
 export const getServers = () => {
     return (dispatch) => {
-        // scalelite.getServers().then((json) => {
-        //     console.log("servers = ", json.servers);
-        //     let servers = json.servers;
-        //     dispatch(receiveServers(json.servers))
-        // })
+        scalelite.getServers().then((json) => {
+            console.log("servers = ", json.servers);
+            let servers = json.servers;
+            dispatch(receiveServers(json.servers))
+        })
 
-        axios.get('https://jsonplaceholder.typicode.com/todos')
-            .then((response) => dispatch(receiveServers(response.data)))
-            .catch((error) => console.log(error))
+        // axios.get('https://jsonplaceholder.typicode.com/todos')
+        //     .then((response) => dispatch(receiveServers(response.data)))
+        //     .catch((error) => console.log(error))
     }
 }
 
 export const getMeetings = (serverID) => {
     return {
         type: FETCH_MEETINGS,
-        payload: { meetings: [], serverID }
+        payload: { serverID }
     }
-    // return (dispatch) => {
-    //     scalelite.getServerMeetings(serverID).then((json) => {
-    //         console.log(json);
-
-    //         dispatch({
-    //             type: FETCH_MEETINGS,
-    //             payload: { meetings: json.meetings, serverID }
-    //         })
-    //     });
-    // }
 }
 
 export const receiveServers = (data) => {
@@ -127,5 +118,12 @@ export const closeAlert = () => {
     return {
         type: CLOSE_ALERT,
         payload: ''
+    }
+}
+
+export const showInfoMessage = (message) => {
+    return {
+        type: SHOW_MESSAGE,
+        payload: message
     }
 }

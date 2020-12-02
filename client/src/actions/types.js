@@ -12,3 +12,4 @@ export const LOGIN = 'login';
 export const CHECK_COOKIES = 'check_cookies';
 export const NO_SECRET = 'no_secret';
 export const FETCH_MEETINGS = 'fetch_meetings';
+export const SHOW_MESSAGE = 'show_message';

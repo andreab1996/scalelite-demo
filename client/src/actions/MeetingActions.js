@@ -11,19 +11,20 @@ const scalelite = new Scalelite(
     // process.env.SCALELITE_SECRET
 )
 
-export const getMeetings = (serverID) => {
-    return {
-        type: FETCH_MEETINGS,
-        payload: { meetings: [], serverID }
-    }
-    // return (dispatch) => {
-    //     scalelite.getServerMeetings(serverID).then((json) => {
-    //         console.log(json);
-
-    //         dispatch({
-    //             type: FETCH_MEETINGS,
-    //             payload: { meetings: json.meetings, serverID }
-    //         })
-    //     });
+export const getMeetings = (url) => {
+    let serverID = url.split("/");
+    // return {
+    //     type: FETCH_MEETINGS,
+    //     payload: { serverID }
     // }
+    return (dispatch) => {
+        scalelite.getServerMeetings(serverID).then((json) => {
+            console.log(json);
+
+            dispatch({
+                type: FETCH_MEETINGS,
+                payload: { meetings: json.meetings, serverID }
+            })
+        });
+    }
 }
