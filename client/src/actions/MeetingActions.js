@@ -11,7 +11,7 @@ const scalelite = new Scalelite(
     // process.env.SCALELITE_SECRET
 )
 
-export const getMeetings = (url) => {
+export const getSserverMeetings = (url) => {
     let serverID = url.split("/");
     // return {
     //     type: FETCH_MEETINGS,

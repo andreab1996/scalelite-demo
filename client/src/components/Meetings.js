@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
-import { getMeetings } from '../actions';
+import { getSserverMeetings } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
 
 let count = 0;
 class Meetings extends Component {
     UNSAFE_componentWillMount() {
         let url = window.location.href;
-        this.props.getMeetings(url);
+        this.props.getSserverMeetings(url);
+        console.log(this.props.meetings)
     }
     render() {
         return (
@@ -32,14 +33,14 @@ class Meetings extends Component {
                         <h1 style={{ textAlign: "center", color: "white" }}>MEETINGS</h1>
                     </div>
                 </div>
-                {this.props.meetings.length == 0
+                {this.props.meetings?.length == 0
                     ?
                     <div>
                         <span style={{ color: 'white', fontSize: "18px", marginLeft: "10px", fontStyle: "italic" }}>
                             No meetings were found on this server.
                             </span>
                     </div>
-                    : this.props.meetings.map(meeting => {
+                    : this.props.meetings?.map(meeting => {
                         return (
                             <div style={section}>
                                 <div style={{
@@ -88,22 +89,37 @@ class Meetings extends Component {
                                             <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee?.length ? meeting.attendees.attendee?.length : 0}</span>
                                         </div>
                                         {
-                                            meeting.attendees.attendee?.map(attendee => {
-                                                count++;
-                                                return (
+                                            Array.isArray(meeting.attendees.attendee) ?
+                                                meeting.attendees.attendee?.map(attendee => {
+                                                    count++;
+                                                    return (
+                                                        <div style={{ margin: "20px" }}>
+                                                            <span style={{ margin: "15px 5px 15px 5px", fontStyle: "italic", fontWeight: "700" }}>Attendee {count}: </span>
+                                                            <div style={{ marginTop: "15px" }}>
+                                                                <span style={text}>Name: </span>
+                                                                <span style={{ margin: "15px 5px 15px 5px" }}>{attendee.fullName}</span>
+                                                            </div>
+                                                            <div style={{ marginTop: "15px" }}>
+                                                                <span style={text}>Role: </span>
+                                                                <span style={{ margin: "15px 5px 15px 5px" }}>{attendee.role}</span>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                }) :
+                                                (
                                                     <div style={{ margin: "20px" }}>
                                                         <span style={{ margin: "15px 5px 15px 5px", fontStyle: "italic" }}>Attendee {count}: </span>
                                                         <div style={{ marginTop: "15px" }}>
                                                             <span style={text}>Name: </span>
-                                                            <span style={{ margin: "15px 5px 15px 5px" }}>{attendee.fullName}</span>
+                                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee.fullName}</span>
                                                         </div>
                                                         <div style={{ marginTop: "15px" }}>
                                                             <span style={text}>Role: </span>
-                                                            <span style={{ margin: "15px 5px 15px 5px" }}>{attendee.role}</span>
+                                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee.role}</span>
                                                         </div>
                                                     </div>
                                                 )
-                                            })}
+                                        }
                                     </div>
                                     <div style={{ margin: "10px", width: "33%" }}>
                                         <span style={title}>Metadata:</span>
@@ -151,13 +167,13 @@ const section = {
 
 const text = {
     margin: "15px 5px 15px 15px",
-    fontWeight: "600",
+    fontWeight: "700",
     fontSize: "14px",
 }
 
 const title = {
     fontSize: "18px",
-    fontWeight: "600",
+    fontWeight: "700",
     textDecoration: "underline"
 }
 
@@ -167,5 +183,5 @@ const mapStateToProps = ({ meeting }) => {
 };
 
 export default connect(mapStateToProps, {
-    getMeetings
+    getSserverMeetings
 })(hot(Meetings));
