@@ -25,7 +25,7 @@ export const checkCookies = () => {
 }
 
 export const login = (secret) => {
-    if (secret !== "") {
+    if (secret !== "" && secret == "8dfcebc4b2c7faebf8ed960768c993e1bf23efc393780844") {
         let expires = new Date();
         expires.setTime(expires.getTime() + (60 * 60 * 1000));
         cookies.set("secret", secret, { path: "/admin-andrea", expires });
@@ -38,7 +38,7 @@ export const login = (secret) => {
     }
     return {
         type: NO_SECRET,
-        payload: "Please enter a secret key."
+        payload: "Please enter a valid secret key."
     };
 };
 
