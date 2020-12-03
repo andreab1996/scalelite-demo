@@ -30,7 +30,7 @@ export default (state = INITIAL_STATE, action) => {
             //     serverID: "87abb152-634a-4565-812a-80d4e1391439",
             //     serverUrl: "https://vcs1.etfbl.net/bigbluebutton/api/",
             // }, {
-            //     enabled: true,
+            //     enabled: false,
             //     load: 0,
             //     loadMultiplier: 1,
             //     online: true,
@@ -42,8 +42,10 @@ export default (state = INITIAL_STATE, action) => {
             servers = servers.map(s => {
                 return { ...s, expandable: false, action: "Actions", key: ++i }
             });
-            let sortedServers = sortBy(servers, 'enabled', 'online', 'name').reverse();
-            return { ...state, data: sortedServers };
+            let sortedServers = sortBy(servers, ['enabled', 'online', 'serverUrl']);
+            let first = sortedServers.indexOf(sortedServers.find(s => s.enabled && s.online));
+            let newSortedServers = sortedServers.slice(first).concat(sortedServers.slice(0, first));
+            return { ...state, data: newSortedServers };
         case ADD_SERVER:
             state.type = action.payload.returnCode === StatusCode.success ? StatusCode.success : StatusCode.error;
             return { ...state, update: action.payload.returnCode === StatusCode.success ? StatusCode.successCreate : StatusCode.error };
