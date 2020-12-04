@@ -3,6 +3,8 @@ import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
 import { getSserverMeetings } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
+import { faUsers, faPlay, faStop, faCircle, faHeadphonesAlt, faMicrophoneAlt, faVideo, faCamera, faClock, faServer, faChalkboardTeacher } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 let count = 0;
 class Meetings extends Component {
@@ -33,127 +35,165 @@ class Meetings extends Component {
                         <h1 style={{ textAlign: "center", color: "white" }}>MEETINGS</h1>
                     </div>
                 </div>
-                {this.props.meetings?.length == 0
-                    ?
-                    <div>
-                        <span style={{ color: 'white', fontSize: "18px", marginLeft: "10px", fontStyle: "italic" }}>
-                            No meetings were found on this server.
+                <div style={{
+                    display: "flex", flexWrap: "wrap",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}>
+                    {this.props.meetings?.length == 0
+                        ?
+                        <div>
+                            <span style={{ color: 'white', fontSize: "18px", marginLeft: "10px", fontStyle: "italic" }}>
+                                No meetings were found on this server.
                             </span>
-                    </div>
-                    : this.props.meetings?.map(meeting => {
-                        return (
-                            <div style={section}>
-                                <div style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                }}>
-                                    <div style={{ margin: "10px", width: "33%" }}>
-                                        <span style={title}>Basic Information:</span>
-                                        <div style={{ marginTop: "15px" }}>
-                                            <span style={text}>Meeting name: </span>
-                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.meetingName}</span>
+                        </div>
+                        : this.props.meetings?.map(meeting => {
+                            return (
+                                <div style={section}>
+                                    <div style={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                    }}>
+                                        <div style={{ margin: "10px" }}>
+                                            <span style={title}>Basic Information:</span>
+                                            <div style={{ marginTop: "10px" }}>
+                                                <FontAwesomeIcon
+                                                    icon={faServer}
+                                                    color="gray"
+                                                />
+                                                <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.metadata["bbb-origin-server-name"]} ({meeting.metadata["bbb-origin"]})</span>
+                                            </div>
+                                            <div style={{ flexDirection: "row", display: "flex" }}>
+                                                <div style={{ flexDirection: "column", display: "flex" }}>
+                                                    <div style={{ marginTop: "15px", marginRight: "80px" }}>
+                                                        {meeting.running ?
+                                                            <FontAwesomeIcon
+                                                                icon={faPlay}
+                                                                color="green"
+                                                            />
+                                                            : <FontAwesomeIcon
+                                                                icon={faStop}
+                                                                color="red"
+                                                            />
+                                                        }
+                                                        <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.meetingName}</span>
+                                                    </div>
+                                                    <div style={{ marginTop: "15px" }}>
+                                                        <FontAwesomeIcon
+                                                            icon={faUsers}
+                                                            color="gray"
+                                                        />
+                                                        <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.participantCount}</span>
+                                                    </div>
+                                                    <div style={{ marginTop: "15px" }}>
+                                                        <FontAwesomeIcon
+                                                            icon={faMicrophoneAlt}
+                                                            color="gray"
+                                                        />
+                                                        <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.voiceParticipationCount ? meeting.voiceParticipationCount : 0}</span>
+                                                    </div>
+                                                </div>
+                                                <div style={{ flexDirection: "column", display: "flex" }}>
+                                                    <div style={{ marginTop: "15px" }}>
+                                                        {meeting.recording ?
+                                                            <FontAwesomeIcon
+                                                                icon={faCircle}
+                                                                color="green"
+                                                            />
+                                                            : <FontAwesomeIcon
+                                                                icon={faCircle}
+                                                                color="red"
+                                                            />
+                                                        }
+                                                        <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.recording === true ? "Yes" : "No"}</span>
+                                                    </div>
+                                                    <div style={{ marginTop: "15px" }}>
+                                                        <FontAwesomeIcon
+                                                            icon={faHeadphonesAlt}
+                                                            color="gray"
+                                                        />
+                                                        <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.listenerCount}</span>
+                                                    </div>
+                                                    <div style={{ marginTop: "15px" }}>
+                                                        <FontAwesomeIcon
+                                                            icon={faCamera}
+                                                            color="gray"
+                                                        />
+                                                        <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.videoCount}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style={{ marginTop: "15px" }}>
+                                                <FontAwesomeIcon
+                                                    icon={faClock}
+                                                    color="gray"
+                                                />
+                                                <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.time} ({meeting.duration})</span>
+                                            </div>
+
                                         </div>
-                                        <div style={{ marginTop: "15px" }}>
-                                            <span style={text}>Running: </span>
-                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.running === true ? "Yes" : "No"}</span>
-                                        </div>
-                                        <div style={{ marginTop: "15px" }}>
-                                            <span style={text}>Recording: </span>
-                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.recording === true ? "Yes" : "No"}</span>
-                                        </div>
-                                        <div style={{ marginTop: "15px" }}>
-                                            <span style={text}>Number of Participant: </span>
-                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.participantCount}</span>
-                                        </div>
-                                        <div style={{ marginTop: "15px" }}>
-                                            <span style={text}>Number of Moderator: </span>
-                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.moderatorCount}</span>
-                                        </div>
-                                        <div style={{ marginTop: "15px" }}>
-                                            <span style={text}>Number of Listener: </span>
-                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.listenerCount}</span>
-                                        </div>
-                                        <div style={{ marginTop: "15px" }}>
-                                            <span style={text}>voiceParticipationCount: </span>
-                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.voiceParticipationCount ? meeting.voiceParticipationCount : 0}</span>
-                                        </div>
-                                        <div style={{ marginTop: "15px" }}>
-                                            <span style={text}>Has user joined: </span>
-                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.hasUserJoined ? "Yes" : "No"}</span>
-                                        </div>
-                                    </div>
-                                    <div style={{ margin: "10px", width: "33%" }}>
-                                        <span style={title}>Attendees:</span>
-                                        <div style={{ marginTop: "10px" }}>
-                                            <span style={text}>Number of attendees: </span>
-                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee?.length ? meeting.attendees.attendee?.length : 0}</span>
-                                        </div>
-                                        {
-                                            Array.isArray(meeting.attendees.attendee) ?
-                                                meeting.attendees.attendee?.map(attendee => {
-                                                    count++;
-                                                    return (
+                                        <div style={{ margin: "10px", marginLeft: "50px" }}>
+                                            <span style={title}>Moderators:</span>
+                                            <div style={{ marginTop: "10px" }}>
+                                                <FontAwesomeIcon
+                                                    icon={faUsers}
+                                                    color="gray"
+                                                />
+                                                <span style={{ margin: "15px 5px 15px 5px" }}>
+                                                    {meeting.attendees.attendee?.length
+                                                        ? meeting.attendees.attendee.filter(a => a.role == "MODERATOR").length
+                                                        : 0}
+                                                </span>
+                                            </div>
+                                            {
+                                                Array.isArray(meeting.attendees.attendee) ?
+                                                    meeting.attendees.attendee?.map(attendee => {
+                                                        if (attendee.role == "MODERATOR") {
+                                                            return (
+                                                                <div style={{ margin: "20px" }}>
+                                                                    <div style={{ marginTop: "15px" }}>
+                                                                        <FontAwesomeIcon
+                                                                            icon={faChalkboardTeacher}
+                                                                            color="gray"
+                                                                        />
+                                                                        <span style={{ margin: "15px 5px 15px 5px" }}>{attendee.fullName}</span>
+                                                                    </div>
+                                                                </div>
+                                                            )
+                                                        }
+                                                    }) :
+                                                    (
                                                         <div style={{ margin: "20px" }}>
-                                                            <span style={{ margin: "15px 5px 15px 5px", fontStyle: "italic", fontWeight: "700" }}>Attendee {count}: </span>
                                                             <div style={{ marginTop: "15px" }}>
-                                                                <span style={text}>Name: </span>
-                                                                <span style={{ margin: "15px 5px 15px 5px" }}>{attendee.fullName}</span>
-                                                            </div>
-                                                            <div style={{ marginTop: "15px" }}>
-                                                                <span style={text}>Role: </span>
-                                                                <span style={{ margin: "15px 5px 15px 5px" }}>{attendee.role}</span>
+                                                                {meeting.attendees.attendee?.fullName
+                                                                    ? <FontAwesomeIcon
+                                                                        icon={faChalkboardTeacher}
+                                                                        color="gray"
+                                                                    />
+                                                                    : ""}
+                                                                <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee?.fullName}</span>
                                                             </div>
                                                         </div>
                                                     )
-                                                }) :
-                                                (
-                                                    <div style={{ margin: "20px" }}>
-                                                        <span style={{ margin: "15px 5px 15px 5px", fontStyle: "italic" }}>Attendee {count}: </span>
-                                                        <div style={{ marginTop: "15px" }}>
-                                                            <span style={text}>Name: </span>
-                                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee.fullName}</span>
-                                                        </div>
-                                                        <div style={{ marginTop: "15px" }}>
-                                                            <span style={text}>Role: </span>
-                                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee.role}</span>
-                                                        </div>
-                                                    </div>
-                                                )
-                                        }
-                                    </div>
-                                    <div style={{ margin: "10px", width: "33%" }}>
-                                        <span style={title}>Metadata:</span>
-                                        <div style={{ marginTop: "10px" }}>
-                                            <span style={text}>Context: </span>
-                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee?.length ? meeting.attendees.attendee?.length : 0}</span>
-                                        </div>
-                                        <div style={{ marginTop: "10px" }}>
-                                            <span style={text}>Description: </span>
-                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee?.length ? meeting.attendees.attendee?.length : 0}</span>
-                                        </div>
-                                        <div style={{ marginTop: "10px" }}>
-                                            <span style={text}>Server: </span>
-                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee?.length ? meeting.attendees.attendee?.length : 0}</span>
-                                        </div>
-                                        <div style={{ marginTop: "10px" }}>
-                                            <span style={text}>Recording name: </span>
-                                            <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.attendees.attendee?.length ? meeting.attendees.attendee?.length : 0}</span>
+                                            }
+
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
-                    })
-                }
+                            )
+                        })
+                    }
+                </div>
             </div >
         );
     }
 }
 
 const section = {
-    margin: "auto",
+    margin: "20px",
     width: "90%",
-    height: "400px",
+    height: "230px",
+    width: "500px",
     background: "white",
     opacity: "0.8",
     borderRadius: "20px",
@@ -162,7 +202,6 @@ const section = {
     marginTop: "20px",
     overflow: "scroll",
     overflowX: "hidden",
-    maxHeight: "400px",
 }
 
 const text = {

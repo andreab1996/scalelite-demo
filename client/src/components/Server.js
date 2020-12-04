@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import ReactJsAlert from "reactjs-alert";
 import {
     addServer,
     closeAlert,
@@ -16,7 +17,6 @@ import {
 } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
 import { StatusCode } from '../util/StatusCode';
-import ReactJsAlert from "reactjs-alert";
 class Server extends Component {
     UNSAFE_componentWillMount() {
         this.props.getServers();
@@ -74,14 +74,14 @@ class Server extends Component {
                             || this.props.update === StatusCode.successDelete
                             ? "success"
                             : this.props.update === StatusCode.error
-                                ? "error" : "warning"}  // success, warning, error, info	
+                                ? "error" : "warning"}
                         title={this.props.update === StatusCode.successCreate
                             || this.props.update === StatusCode.successUpdate
                             || this.props.update === StatusCode.successDelete
                             ? "Success"
                             : this.props.update === StatusCode.error
-                                ? "Error" : "Warning"}  // title you want to display	
-                        status={true}   // true or false	
+                                ? "Error" : "Warning"}
+                        status={true}
                         color="#1d36ad"
                         quote={
                             this.props.update === StatusCode.successCreate
@@ -93,7 +93,7 @@ class Server extends Component {
                                         : this.props.update === StatusCode.error
                                             ? "Server has been successfully deleted."
                                             : "Something went wrong! Try again."}
-                        Close={() => this.onCloseAlert()}   // callback method for hide	
+                        Close={() => this.onCloseAlert()}
                     /> : []
                 }
                 <h1 style={{ textAlign: "center", color: "white" }}>SERVERS</h1>
@@ -151,6 +151,23 @@ class Server extends Component {
                                     marginTop: "10px",
                                     float: "right"
                                 }}>
+                                    {server.enabled && server.online
+                                        ? <button
+                                            onClick={(e) => { this.onGetMeetings(server) }}
+                                            style={{
+                                                background: "#4682B4",
+                                                color: "white",
+                                                fontSize: "1em",
+                                                margin: "5px",
+                                                padding: "0.25em 0.9em",
+                                                border: "2px solid #4682B4",
+                                                borderRadius: "5px",
+                                            }}
+                                        >
+                                            Meetings
+                                        </button>
+                                        : ''
+                                    }
                                     <button
                                         onClick={(e) => { this.onUpdateServer(server) }}
                                         style={{
@@ -209,7 +226,7 @@ class Server extends Component {
                             ? <Redirect to={this.props.redirectTo} />
                             : ""
                     }
-                </div >
+                </div>
             </div>
         )
     }
