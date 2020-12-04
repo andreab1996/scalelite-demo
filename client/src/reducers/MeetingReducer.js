@@ -192,7 +192,7 @@ export default (state = INITIAL_STATE, action) => {
             //         }
             //     }
             // ];
-            let data = action.payload.meetings.map(m => {
+            let data = action.payload.meetings?.map(m => {
                 return {
                     ...m,
                     time: convertDate(m.createTime),
