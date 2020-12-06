@@ -1,4 +1,4 @@
-import { CHECK_COOKIES, LOGIN, NO_SECRET, PASSWORD_CHANGED, USERNAME_CHANGED } from './types';
+import { CHECK_COOKIES, LOGIN, LOGOUT, NO_SECRET, PASSWORD_CHANGED, USERNAME_CHANGED } from './types';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
@@ -17,15 +17,15 @@ export const passwordChanged = (text) => {
 };
 
 export const checkCookies = () => {
-    console.log(cookies.get('secret'));
+    console.log(cookies.get("secret"));
     return {
         type: CHECK_COOKIES,
-        payload: cookies.get('secret')
+        payload: cookies.get("secret")
     };
 }
-
+// 8dfcebc4b2c7faebf8ed960768c993e1bf23efc393780844
 export const login = (secret) => {
-    if (secret !== "" && secret == "8dfcebc4b2c7faebf8ed960768c993e1bf23efc393780844") {
+    if (secret !== "") {
         let expires = new Date();
         expires.setTime(expires.getTime() + (60 * 60 * 1000));
         cookies.set("secret", secret, { path: "/admin-andrea", expires });
@@ -42,12 +42,19 @@ export const login = (secret) => {
     };
 };
 
-// export const confirmIsPasswordSame = (text) => {
-//     return {
-//         type: CONFIRM_PASSWORD,
-//         payload: text
-//     };
-// };
+export const logout = () => {
+    return {
+        type: LOGOUT,
+        payload: ""
+    };
+};
+
+export const noSecret = () => {
+    return {
+        type: NO_SECRET,
+        payload: "Please enter a valid secret key."
+    };
+};
 
 // export const passwordIsnotSame = (text) => {
 //     return {

@@ -1,28 +1,38 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
-import { passwordChanged, usernameChanged, login, checkCookies } from '../actions';
+import { passwordChanged, usernameChanged, login, checkCookies, noSecret } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
 import { Redirect } from 'react-router-dom'
 
 class Login extends Component {
     UNSAFE_componentWillMount() {
         this.props.checkCookies();
-        console.log(this.props.hasCookies, this.props.redirectTo)
+        console.log("hasCookies = ", this.props.hasCookies, "redirectTo", this.props.redirectTo)
     }
 
     onUsernameChanged(e) {
-        console.log(e.target.value)
         this.props.usernameChanged(e.target.value);
     }
 
     onPasswordChange(e) {
-        console.log(e.target.value)
         this.props.passwordChanged(e.target.value);
     }
 
     onLogin(e) {
         this.props.login(this.props.username);
+    }
+
+    onNoSecret() {
+        this.props.noSecret();
+    }
+
+    handleKeyDown(e) {
+        if (e.key === 'Enter') {
+            console.log(this.props.username)
+            this.props.login(this.props.username);
+        }
+
     }
 
     render() {
@@ -32,16 +42,22 @@ class Login extends Component {
                     <h1 style={loginText}>Login</h1>
                     <div style={{ marginTop: "20px" }}>
                         <input
-                            type="text"
+                            type="password"
                             placeholder="Please enter secret key"
                             style={inputStyle}
                             onChange={(e) => { this.onUsernameChanged(e) }}
-
+                            onKeyDown={(e) => this.handleKeyDown(e)}
                         />
                     </div>
                     <div style={{ color: "red", fontSize: "18px" }}>
                         <span>{this.props.error}</span>
                     </div>
+                    <div style={{ color: "red", fontSize: "18px" }}>
+                        <span>{this.props.errorMessage}</span>
+                    </div>
+                    {/* <div style={{ color: "red", fontSize: "18px" }}>
+                        <span>{this.props.errMessage}</span>
+                    </div> */}
                     <button
                         onClick={() => this.onLogin()}
                         style={buttonStyle}
@@ -53,6 +69,7 @@ class Login extends Component {
                             ? <Redirect to={this.props.redirectTo} />
                             : ""
                     }
+                    {this.props.errorMessage ? this.onNoSecret() : ""}
                 </div >
             </div >
         );
@@ -115,7 +132,7 @@ const buttonStyle = {
     height: "40px",
 }
 
-const mapStateToProps = ({ login }) => {
+const mapStateToProps = ({ login, server, meeting }) => {
     const {
         name,
         username,
@@ -128,6 +145,8 @@ const mapStateToProps = ({ login }) => {
         error
     } = login;
 
+    const { errorMessage } = server;
+    const { errMessage } = meeting;
     return {
         name,
         username,
@@ -137,7 +156,10 @@ const mapStateToProps = ({ login }) => {
         registration,
         redirectTo,
         hasCookies,
-        error
+        error,
+        errorMessage,
+        errMessage,
+        noSecret
     };
 };
 

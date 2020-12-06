@@ -5,8 +5,8 @@ import { getSserverMeetings } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
 import { faUsers, faPlay, faStop, faCircle, faHeadphonesAlt, faMicrophoneAlt, faVideo, faCamera, faClock, faServer, faChalkboardTeacher } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-let count = 0;
+import { Redirect } from 'react-router-dom';
+import CustomAppBar from './common/CustomAppBar';
 class Meetings extends Component {
     UNSAFE_componentWillMount() {
         let url = window.location.href;
@@ -22,18 +22,19 @@ class Meetings extends Component {
                 backgroundRepeat: 'no-repeat',
                 overflow: "scroll",
             }}>
+                <CustomAppBar title="MEETINGS" href="/admin-andrea/servers" />
                 <div style={{
                     display: "flex",
                     flexDirection: "row",
                 }}>
-                    <a style={{ marginTop: "30px", marginLeft: "10px", color: "white" }} href="/admin-andrea/servers">Back to Servers</a>
-                    <div style={{
+                    {/* <a style={{ marginTop: "30px", marginLeft: "10px", color: "white" }} href="/admin-andrea/servers">Back to Servers</a> */}
+                    {/* <div style={{
                         justifyContent: "center",
                         alignItems: "center",
                         flex: 1,
                     }}>
                         <h1 style={{ textAlign: "center", color: "white" }}>MEETINGS</h1>
-                    </div>
+                    </div> */}
                 </div>
                 <div style={{
                     display: "flex", flexWrap: "wrap",
@@ -176,12 +177,16 @@ class Meetings extends Component {
                                                         </div>
                                                     )
                                             }
-
                                         </div>
                                     </div>
                                 </div>
                             )
                         })
+                    }
+                    {
+                        this.props.invalidSecret
+                            ? <Redirect to="/admin-andrea" />
+                            : ""
                     }
                 </div>
             </div >
@@ -217,8 +222,8 @@ const title = {
 }
 
 const mapStateToProps = ({ meeting }) => {
-    const { meetings } = meeting;
-    return { meetings };
+    const { meetings, invalidSecret } = meeting;
+    return { meetings, invalidSecret };
 };
 
 export default connect(mapStateToProps, {

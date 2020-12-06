@@ -17,6 +17,7 @@ import {
 } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
 import { StatusCode } from '../util/StatusCode';
+import CustomAppBar from './common/CustomAppBar';
 class Server extends Component {
     UNSAFE_componentWillMount() {
         this.props.getServers();
@@ -66,7 +67,9 @@ class Server extends Component {
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 overflow: "scroll",
+                marginTop: "0px"
             }}>
+                <CustomAppBar title="SERVERS" />
                 {this.props.update ?
                     <ReactJsAlert
                         type={this.props.update === StatusCode.successCreate
@@ -96,7 +99,6 @@ class Server extends Component {
                         Close={() => this.onCloseAlert()}
                     /> : []
                 }
-                <h1 style={{ textAlign: "center", color: "white" }}>SERVERS</h1>
                 <div style={{
                     display: "flex", flexWrap: "wrap",
                     justifyContent: "center",
@@ -226,6 +228,11 @@ class Server extends Component {
                             ? <Redirect to={this.props.redirectTo} />
                             : ""
                     }
+                    {
+                        this.props.invalidSecret
+                            ? <Redirect to="/admin-andrea/" />
+                            : ""
+                    }
                 </div>
             </div>
         )
@@ -271,10 +278,10 @@ const dot = {
     display: "inline-block",
 }
 
-const mapStateToProps = ({ server }) => {
-    const { data, update, redirectTo, message } = server;
+const mapStateToProps = ({ server, login }) => {
+    const { data, update, redirectTo, message, invalidSecret } = server;
 
-    return { data, update, redirectTo, message };
+    return { data, update, redirectTo, message, invalidSecret };
 }
 
 export default connect(
