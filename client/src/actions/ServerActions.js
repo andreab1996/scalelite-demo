@@ -29,21 +29,21 @@ export const getServers = () => {
     )
     console.log("==================", scalelite)
     return (dispatch) => {
-        // scalelite.getServers().then((json) => {
-        //     console.log("servers = ", json);
+        scalelite.getServers().then((json) => {
+            console.log("servers = ", json);
 
-        //     if (json.returncode !== "FAILED")
-        //         dispatch(receiveServers(json.servers));
-        //     else {
-        //         cookies.remove("secret", { path: "/admin-andrea" });
-        //         console.log("#################################", cookies.get("secret"));
-        //         dispatch(invalidSecret(true));
-        //     }
-        // })
+            if (json.returncode !== "FAILED")
+                dispatch(receiveServers(json.servers));
+            else {
+                cookies.remove("secret", { path: "/admin-andrea" });
+                console.log("#################################", cookies.get("secret"));
+                dispatch(invalidSecret(true));
+            }
+        })
 
-        axios.get('https://jsonplaceholder.typicode.com/todos')
-            .then((response) => dispatch(receiveServers(response.data)))
-            .catch((error) => console.log(error))
+        // axios.get('https://jsonplaceholder.typicode.com/todos')
+        //     .then((response) => dispatch(receiveServers(response.data)))
+        //     .catch((error) => console.log(error))
     }
 }
 

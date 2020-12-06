@@ -17,29 +17,29 @@ const INITIAL_STATE = { data: [], update: '', type: '', redirectTo: null, messag
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case FETCH_SERVERS:
-            let servers = [{
-                enabled: true,
-                load: 0,
-                loadMultiplier: 1,
-                online: true,
-                serverID: "3cf4fcbf-950a-4f02-9068-a0f0120bc59e",
-                serverUrl: "https://vcs3.etfbl.net/bigbluebutton/api/",
-            }, {
-                enabled: false,
-                load: 0,
-                loadMultiplier: 1,
-                online: true,
-                serverID: "87abb152-634a-4565-812a-80d4e1391439",
-                serverUrl: "https://vcs1.etfbl.net/bigbluebutton/api/",
-            }, {
-                enabled: false,
-                load: 0,
-                loadMultiplier: 1,
-                online: true,
-                serverID: "3cf4fcbf-950a-4f02-9068-a0f0120bc59e",
-                serverUrl: "https://vcs2.etfbl.net/bigbluebutton/api/",
-            }];
-            // let servers = action.payload;
+            // let servers = [{
+            //     enabled: true,
+            //     load: 0,
+            //     loadMultiplier: 1,
+            //     online: true,
+            //     serverID: "3cf4fcbf-950a-4f02-9068-a0f0120bc59e",
+            //     serverUrl: "https://vcs3.etfbl.net/bigbluebutton/api/",
+            // }, {
+            //     enabled: false,
+            //     load: 0,
+            //     loadMultiplier: 1,
+            //     online: true,
+            //     serverID: "87abb152-634a-4565-812a-80d4e1391439",
+            //     serverUrl: "https://vcs1.etfbl.net/bigbluebutton/api/",
+            // }, {
+            //     enabled: false,
+            //     load: 0,
+            //     loadMultiplier: 1,
+            //     online: true,
+            //     serverID: "3cf4fcbf-950a-4f02-9068-a0f0120bc59e",
+            //     serverUrl: "https://vcs2.etfbl.net/bigbluebutton/api/",
+            // }];
+            let servers = action.payload;
             let i = 0;
             servers = servers?.map(s => {
                 return { ...s, expandable: false, action: "Actions", key: ++i }
@@ -66,7 +66,7 @@ export default (state = INITIAL_STATE, action) => {
         case SHOW_MESSAGE:
             return { ...state, message: action.payload };
         case INVALID_SECRET:
-            return { ...state, invalidSecret: action.payload, errorMessage: 'You did not pass the checksum security check' };
+            return { ...state, invalidSecret: action.payload, errorMessage: 'You did not pass the correct checksum security check.' };
         case UPDATE_REDIRECT_TO:
             return { ...state, redirectTo: action.payload };
         default:

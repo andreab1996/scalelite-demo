@@ -48,12 +48,9 @@ class Login extends Component {
                     <div style={{ color: "red", fontSize: "18px" }}>
                         <span>{this.props.error}</span>
                     </div>
-                    {/* <div style={{ color: "red", fontSize: "18px" }}>
+                    <div style={{ color: "red", fontSize: "18px" }}>
                         <span>{this.props.errorMessage}</span>
-                    </div> */}
-                    {/* <div style={{ color: "red", fontSize: "18px" }}>
-                        <span>{this.props.errMessage}</span>
-                    </div> */}
+                    </div>
                     <button
                         onClick={() => this.onLogin()}
                         style={buttonStyle}
@@ -128,7 +125,7 @@ const buttonStyle = {
     height: "40px",
 }
 
-const mapStateToProps = ({ login }) => {
+const mapStateToProps = ({ login, server }) => {
     const {
         name,
         username,
@@ -141,8 +138,8 @@ const mapStateToProps = ({ login }) => {
         error
     } = login;
 
-    // const { errorMessage } = server;
-    // const { errMessage } = meeting;
+    const { errorMessage } = server;
+
     return {
         name,
         username,
@@ -153,14 +150,13 @@ const mapStateToProps = ({ login }) => {
         redirectTo,
         hasCookies,
         error,
-        // errorMessage,
-        // errMessage,
-        noSecret
+        errorMessage,
     };
 };
 
 export default connect(mapStateToProps, {
     usernameChanged,
     login,
-    checkCookies
+    checkCookies,
+    noSecret
 })(hot(Login));

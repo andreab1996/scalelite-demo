@@ -20,27 +20,27 @@ export const getSserverMeetings = (url) => {
         "https://vcss.etfbl.net/scalelite/api/",
         cookies.get('secret')
     )
-    return {
-        type: FETCH_MEETINGS,
-        payload: { serverID }
-    }
-    // return (dispatch) => {
-    //     scalelite.getServerMeetings(serverID).then((json) => {
-    //         console.log(json);
-    //         if (json.returncode !== "FAILED")
-    //             dispatch({
-    //                 type: FETCH_MEETINGS,
-    //                 payload: { meetings: json.meetings, serverID }
-    //             })
-    //         else {
-    //             cookies.remove("secret", { path: "/admin-andrea" });
-    //             dispatch({
-    //                 type: INVALID_SECRET,
-    //                 payload: true
-    //             })
-    //         }
-    //     });
+    // return {
+    //     type: FETCH_MEETINGS,
+    //     payload: { serverID }
     // }
+    return (dispatch) => {
+        scalelite.getServerMeetings(serverID).then((json) => {
+            console.log(json);
+            if (json.returncode !== "FAILED")
+                dispatch({
+                    type: FETCH_MEETINGS,
+                    payload: { meetings: json.meetings, serverID }
+                })
+            else {
+                cookies.remove("secret", { path: "/admin-andrea" });
+                dispatch({
+                    type: INVALID_SECRET,
+                    payload: true
+                })
+            }
+        });
+    }
 }
 
 export const redirectToLogin = (redirectTo) => {
