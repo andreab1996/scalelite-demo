@@ -15,3 +15,5 @@ export const NO_SECRET = 'no_secret';
 export const FETCH_MEETINGS = 'fetch_meetings';
 export const SHOW_MESSAGE = 'show_message';
 export const INVALID_SECRET = 'invalid_secret';
+export const UPDATE_REDIRECT_TO = 'update_redirect_to';
+export const SET_INITIAL_STATE = 'set_initial_state';

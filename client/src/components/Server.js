@@ -13,13 +13,17 @@ import {
     enableServer,
     getMeetings,
     getServers,
-    showInfoMessage
+    logout,
+    showInfoMessage,
+    updateRedirectTo
 } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
 import { StatusCode } from '../util/StatusCode';
 import CustomAppBar from './common/CustomAppBar';
 class Server extends Component {
-    UNSAFE_componentWillMount() {
+    constructor(props) {
+        super(props);
+
         this.props.getServers();
     }
 
@@ -59,6 +63,12 @@ class Server extends Component {
         this.props.showInfoMessage("The server must be online and allow meetings to be held.");
     }
 
+    onLogOut = () => {
+        this.props.logout();
+        // return (<Redirect to="/admin-andrea/" />)
+        this.props.updateRedirectTo("/admin-andrea/");
+    }
+
     render() {
         return (
             <div style={{
@@ -69,7 +79,7 @@ class Server extends Component {
                 overflow: "scroll",
                 marginTop: "0px"
             }}>
-                <CustomAppBar title="SERVERS" />
+                <CustomAppBar title="SERVERS" logout={this.onLogOut} />
                 {this.props.update ?
                     <ReactJsAlert
                         type={this.props.update === StatusCode.successCreate
@@ -278,7 +288,7 @@ const dot = {
     display: "inline-block",
 }
 
-const mapStateToProps = ({ server, login }) => {
+const mapStateToProps = ({ server }) => {
     const { data, update, redirectTo, message, invalidSecret } = server;
 
     return { data, update, redirectTo, message, invalidSecret };
@@ -294,6 +304,8 @@ export default connect(
         enableServer,
         deleteServer,
         getMeetings,
-        showInfoMessage
+        showInfoMessage,
+        logout,
+        updateRedirectTo,
     }
 )(hot(Server));

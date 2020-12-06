@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
-import { getSserverMeetings } from '../actions';
+import { getSserverMeetings, logout, redirectToLogin } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
 import { faUsers, faPlay, faStop, faCircle, faHeadphonesAlt, faMicrophoneAlt, faVideo, faCamera, faClock, faServer, faChalkboardTeacher } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,6 +13,12 @@ class Meetings extends Component {
         this.props.getSserverMeetings(url);
         console.log(this.props.meetings)
     }
+
+    onLogOut = () => {
+        this.props.logout();
+        this.props.redirectToLogin("/admin-andrea/");
+    }
+
     render() {
         return (
             <div style={{
@@ -22,7 +28,7 @@ class Meetings extends Component {
                 backgroundRepeat: 'no-repeat',
                 overflow: "scroll",
             }}>
-                <CustomAppBar title="MEETINGS" href="/admin-andrea/servers" />
+                <CustomAppBar title="MEETINGS" href="/admin-andrea/servers" logout={this.onLogOut} />
                 <div style={{
                     display: "flex",
                     flexDirection: "row",
@@ -184,6 +190,11 @@ class Meetings extends Component {
                         })
                     }
                     {
+                        this.props.redirectTo !== null
+                            ? <Redirect to={this.props.redirectTo} />
+                            : ""
+                    }
+                    {
                         this.props.invalidSecret
                             ? <Redirect to="/admin-andrea" />
                             : ""
@@ -219,10 +230,12 @@ const title = {
 }
 
 const mapStateToProps = ({ meeting }) => {
-    const { meetings, invalidSecret } = meeting;
-    return { meetings, invalidSecret };
+    const { meetings, invalidSecret, redirectTo } = meeting;
+    return { meetings, invalidSecret, redirectTo };
 };
 
 export default connect(mapStateToProps, {
-    getSserverMeetings
+    getSserverMeetings,
+    logout,
+    redirectToLogin
 })(hot(Meetings));

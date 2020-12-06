@@ -3,15 +3,7 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 const INITIAL_STATE = {
-    name: '',
     username: '',
-    password: '',
-    confirmPassword: '',
-    samePassword: '',
-    registration: false,
-    user: {},
-    loginError: '',
-    loading: false,
     redirectTo: null,
     hasCookies: false,
     error: false
@@ -30,13 +22,12 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, redirectTo: '/admin-andrea/servers', hasCookies: true, error: false };
         case LOGOUT:
             cookies.remove("secret");
-            return { ...state, redirectTo: "/admin-andrea/" };
+            return INITIAL_STATE;
         case CHECK_COOKIES:
             return { ...state, hasCookies: action.payload ? true : false, redirectTo: action.payload ? '/admin-andrea/servers' : null }
         case NO_SECRET:
             console.log("has secret = ", state.hasCookies)
             return { ...state, error: action.payload, hasCookies: false, redirectTo: null };
-
         default:
             return INITIAL_STATE;
     }

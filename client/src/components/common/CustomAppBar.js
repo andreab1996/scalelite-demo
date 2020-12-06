@@ -1,10 +1,5 @@
-import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function CustomAppBar({ title, href = null }) {
+export default function CustomAppBar({ title, href = null, logout }) {
     const classes = useStyles();
 
     return (
@@ -27,6 +22,7 @@ export default function CustomAppBar({ title, href = null }) {
                 : ""}
             <h1 style={{ textAlign: "center", color: "white", flex: 1, }}>{title}</h1>
             <button
+                onClick={() => logout()}
                 style={{
                     background: "#4682B4",
                     color: "white",

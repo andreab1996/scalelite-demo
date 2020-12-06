@@ -1,25 +1,21 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
-import { passwordChanged, usernameChanged, login, checkCookies, noSecret } from '../actions';
+import { Redirect } from 'react-router-dom';
+import { checkCookies, login, noSecret, usernameChanged } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
-import { Redirect } from 'react-router-dom'
 
 class Login extends Component {
-    UNSAFE_componentWillMount() {
+    constructor(props) {
+        super(props);
         this.props.checkCookies();
-        console.log("hasCookies = ", this.props.hasCookies, "redirectTo", this.props.redirectTo)
     }
 
     onUsernameChanged(e) {
         this.props.usernameChanged(e.target.value);
     }
 
-    onPasswordChange(e) {
-        this.props.passwordChanged(e.target.value);
-    }
-
-    onLogin(e) {
+    onLogin() {
         this.props.login(this.props.username);
     }
 
@@ -52,9 +48,9 @@ class Login extends Component {
                     <div style={{ color: "red", fontSize: "18px" }}>
                         <span>{this.props.error}</span>
                     </div>
-                    <div style={{ color: "red", fontSize: "18px" }}>
+                    {/* <div style={{ color: "red", fontSize: "18px" }}>
                         <span>{this.props.errorMessage}</span>
-                    </div>
+                    </div> */}
                     {/* <div style={{ color: "red", fontSize: "18px" }}>
                         <span>{this.props.errMessage}</span>
                     </div> */}
@@ -132,7 +128,7 @@ const buttonStyle = {
     height: "40px",
 }
 
-const mapStateToProps = ({ login, server, meeting }) => {
+const mapStateToProps = ({ login }) => {
     const {
         name,
         username,
@@ -145,8 +141,8 @@ const mapStateToProps = ({ login, server, meeting }) => {
         error
     } = login;
 
-    const { errorMessage } = server;
-    const { errMessage } = meeting;
+    // const { errorMessage } = server;
+    // const { errMessage } = meeting;
     return {
         name,
         username,
@@ -157,15 +153,14 @@ const mapStateToProps = ({ login, server, meeting }) => {
         redirectTo,
         hasCookies,
         error,
-        errorMessage,
-        errMessage,
+        // errorMessage,
+        // errMessage,
         noSecret
     };
 };
 
 export default connect(mapStateToProps, {
     usernameChanged,
-    passwordChanged,
     login,
     checkCookies
 })(hot(Login));
