@@ -7,11 +7,13 @@ import { faUsers, faPlay, faStop, faCircle, faHeadphonesAlt, faMicrophoneAlt, fa
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Redirect } from 'react-router-dom';
 import CustomAppBar from './common/CustomAppBar';
+import { CircularProgress } from '@material-ui/core';
 class Meetings extends Component {
-    UNSAFE_componentWillMount() {
+    constructor(props) {
+        super(props);
+
         let url = window.location.href;
         this.props.getSserverMeetings(url);
-        console.log(this.props.meetings)
     }
 
     onLogOut = () => {
@@ -33,14 +35,6 @@ class Meetings extends Component {
                     display: "flex",
                     flexDirection: "row",
                 }}>
-                    {/* <a style={{ marginTop: "30px", marginLeft: "10px", color: "white" }} href="/admin-andrea/servers">Back to Servers</a> */}
-                    {/* <div style={{
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flex: 1,
-                    }}>
-                        <h1 style={{ textAlign: "center", color: "white" }}>MEETINGS</h1>
-                    </div> */}
                 </div>
                 <div style={{
                     display: "flex", flexWrap: "wrap",
@@ -50,6 +44,7 @@ class Meetings extends Component {
                     {this.props.meetings?.length == 0
                         ?
                         <div>
+                            <CircularProgress color="secondary" />
                             <span style={{ color: 'white', fontSize: "18px", marginLeft: "10px", fontStyle: "italic" }}>
                                 No meetings were found on this server.
                             </span>

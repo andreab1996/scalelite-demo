@@ -200,7 +200,7 @@ export default (state = INITIAL_STATE, action) => {
                     duration: calculateDuration(m.createTime),
                 }
             })
-            return { ...state, meetings: data, redirectTo: `/admin-andrea/meetings/${action.payload.serverID}` }
+            return { ...state, meetings: data }
         case INVALID_SECRET:
             return { ...state, invalidSecret: action.payload, errMessage: 'You did not pass the checksum security check' };
         case UPDATE_REDIRECT_TO:
@@ -220,7 +220,7 @@ function convertDate(timestamp) {
 
 function calculateDuration(timestamp) {
     let currentDate = new Date();
-    let date = new Date(currentDate.getTime() - timestamp);
+    let date = new Date(currentDate.getTime() - timestamp - 60 * 60000);
     let duration = `${twoDigits(date.getHours())}:${twoDigits(date.getMinutes())}:${twoDigits(date.getSeconds())}`;
 
     console.log(duration);
