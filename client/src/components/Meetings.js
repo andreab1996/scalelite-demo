@@ -55,7 +55,7 @@ class Meetings extends Component {
                                         display: "flex",
                                         flexDirection: "row",
                                     }}>
-                                        <div style={{ margin: "10px" }}>
+                                        <div style={{ margin: "10px", width: "50%" }}>
                                             <span style={title}>Basic Information:</span>
                                             <div style={{ marginTop: "10px" }}>
                                                 <FontAwesomeIcon
@@ -133,7 +133,7 @@ class Meetings extends Component {
                                             </div>
 
                                         </div>
-                                        <div style={{ margin: "10px", marginLeft: "50px" }}>
+                                        <div style={{ margin: "10px", marginLeft: "50px", width: "50%" }}>
                                             <span style={title}>Moderators:</span>
                                             <div style={{ marginTop: "10px" }}>
                                                 <FontAwesomeIcon
@@ -196,17 +196,14 @@ class Meetings extends Component {
 
 const section = {
     margin: "20px",
-    width: "90%",
-    height: "230px",
-    width: "500px",
+    height: "auto",
+    width: "600px",
     background: "white",
     opacity: "0.8",
     borderRadius: "20px",
     padding: "10px",
     color: "black",
     marginTop: "20px",
-    overflow: "scroll",
-    overflowX: "hidden",
 }
 
 const text = {
