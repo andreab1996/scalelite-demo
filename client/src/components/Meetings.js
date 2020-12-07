@@ -1,13 +1,13 @@
+import { faCamera, faChalkboardTeacher, faCircle, faClock, faHeadphonesAlt, faMicrophoneAlt, faPlay, faServer, faStop, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { CircularProgress } from '@material-ui/core';
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { getSserverMeetings, logout, redirectToLogin } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
-import { faUsers, faPlay, faStop, faCircle, faHeadphonesAlt, faMicrophoneAlt, faVideo, faCamera, faClock, faServer, faChalkboardTeacher } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Redirect } from 'react-router-dom';
 import CustomAppBar from './common/CustomAppBar';
-import { CircularProgress } from '@material-ui/core';
 class Meetings extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +18,6 @@ class Meetings extends Component {
     componentDidMount() {
         setInterval(this.onGetMeetings, 30000);
     }
-
 
     onGetMeetings = () => {
         let url = window.location.href;
