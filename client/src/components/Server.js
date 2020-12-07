@@ -15,7 +15,7 @@ import {
     getServers,
     logout,
     showInfoMessage,
-    updateRedirectTo
+    updateRedirectTo,
 } from '../actions';
 import loginBackground from '../util/loginBackground.jpg';
 import { StatusCode } from '../util/StatusCode';
@@ -69,7 +69,6 @@ class Server extends Component {
 
     onLogOut = () => {
         this.props.logout();
-        // return (<Redirect to="/admin-andrea/" />)
         this.props.updateRedirectTo("/admin-andrea/");
     }
 
@@ -83,7 +82,11 @@ class Server extends Component {
                 overflow: "scroll",
                 marginTop: "0px"
             }}>
-                <CustomAppBar title="SERVERS" logout={this.onLogOut} />
+                <CustomAppBar
+                    title="SERVERS"
+                    logout={this.onLogOut}
+                    refresh={this.onGetData}
+                />
                 {this.props.update ?
                     <ReactJsAlert
                         type={this.props.update === StatusCode.successCreate

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function CustomAppBar({ title, href = null, logout }) {
+export default function CustomAppBar({ title, href = null, logout, refresh }) {
     const classes = useStyles();
 
     return (
@@ -22,7 +22,7 @@ export default function CustomAppBar({ title, href = null, logout }) {
                 : ""}
             <h1 style={{ textAlign: "center", color: "white", flex: 1, }}>{title}</h1>
             <button
-                onClick={() => logout()}
+                onClick={() => refresh()}
                 style={{
                     background: "#4682B4",
                     color: "white",
@@ -30,6 +30,20 @@ export default function CustomAppBar({ title, href = null, logout }) {
                     margin: "5px",
                     padding: "0.25em 0.9em",
                     border: "2px solid #4682B4",
+                    borderRadius: "5px",
+                }}
+            >
+                Refresh
+            </button>
+            <button
+                onClick={() => logout()}
+                style={{
+                    background: "#4682F4",
+                    color: "white",
+                    fontSize: "1em",
+                    margin: "5px",
+                    padding: "0.25em 0.9em",
+                    border: "2px solid #4682F4",
                     borderRadius: "5px",
                 }}
             >

@@ -39,7 +39,12 @@ class Meetings extends Component {
                 backgroundRepeat: 'no-repeat',
                 overflow: "scroll",
             }}>
-                <CustomAppBar title="MEETINGS" href="/admin-andrea/servers" logout={this.onLogOut} />
+                <CustomAppBar
+                    title="MEETINGS"
+                    href="/admin-andrea/servers"
+                    logout={this.onLogOut}
+                    refresh={this.onGetMeetings}
+                />
                 <div style={{
                     display: "flex",
                     flexDirection: "row",
