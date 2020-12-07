@@ -24,7 +24,11 @@ class Server extends Component {
     constructor(props) {
         super(props);
 
-        this.props.getServers();
+        this.onGetData();
+    }
+
+    componentDidMount() {
+        setInterval(this.onGetData, 30000);
     }
 
     onGetData = () => {

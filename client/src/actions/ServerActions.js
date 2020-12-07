@@ -27,7 +27,6 @@ export const getServers = () => {
         "https://vcss.etfbl.net/scalelite/api/",
         cookies.get("secret")
     )
-    console.log("==================", scalelite)
     return (dispatch) => {
         scalelite.getServers().then((json) => {
             console.log("servers = ", json);
@@ -36,7 +35,6 @@ export const getServers = () => {
                 dispatch(receiveServers(json.servers));
             else {
                 cookies.remove("secret", { path: "/admin-andrea" });
-                console.log("#################################", cookies.get("secret"));
                 dispatch(invalidSecret(true));
             }
         })

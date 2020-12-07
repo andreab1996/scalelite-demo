@@ -12,6 +12,15 @@ class Meetings extends Component {
     constructor(props) {
         super(props);
 
+        this.onGetMeetings();
+    }
+
+    componentDidMount() {
+        setInterval(this.onGetMeetings, 30000);
+    }
+
+
+    onGetMeetings = () => {
         let url = window.location.href;
         this.props.getSserverMeetings(url);
     }
