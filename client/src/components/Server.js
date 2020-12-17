@@ -171,12 +171,12 @@ class Server extends Component {
                                         ? <button
                                             onClick={(e) => { this.onGetMeetings(server) }}
                                             style={{
-                                                background: "#660044",
+                                                background: "#8B008B",
                                                 color: "white",
                                                 fontSize: "1em",
                                                 margin: "5px",
                                                 padding: "0.25em 0.9em",
-                                                border: "2px solid #660044",
+                                                border: "2px solid #8B008B",
                                                 borderRadius: "5px",
                                             }}
                                         >
