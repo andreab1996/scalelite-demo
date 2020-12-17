@@ -174,12 +174,12 @@ class Server extends Component {
                                         ? <button
                                             onClick={(e) => { this.onGetMeetings(server) }}
                                             style={{
-                                                background: "#4682B4",
+                                                background: "#7e9eca",
                                                 color: "white",
                                                 fontSize: "1em",
                                                 margin: "5px",
                                                 padding: "0.25em 0.9em",
-                                                border: "2px solid #4682B4",
+                                                border: "2px solid #7e9eca",
                                                 borderRadius: "5px",
                                             }}
                                         >
@@ -201,20 +201,22 @@ class Server extends Component {
                                     >
                                         {server.enabled === true ? "Disable" : "Enable"}
                                     </button>
-                                    <button
-                                        onClick={(e) => { this.onDeleteServer(server) }}
-                                        style={{
-                                            background: "#DC143C",
-                                            color: "white",
-                                            fontSize: "1em",
-                                            margin: "5px",
-                                            padding: "0.25em 1em",
-                                            border: "2px solid #DC143C",
-                                            borderRadius: "5px",
-                                        }}
-                                    >
-                                        Delete
+                                    {!server.enabled || !server.online ?
+                                        <button
+                                            onClick={(e) => { this.onDeleteServer(server) }}
+                                            style={{
+                                                background: "#DC143C",
+                                                color: "white",
+                                                fontSize: "1em",
+                                                margin: "5px",
+                                                padding: "0.25em 1em",
+                                                border: "2px solid #DC143C",
+                                                borderRadius: "5px",
+                                            }}
+                                        >
+                                            Delete
                                     </button>
+                                        : ""}
                                 </div>
                             </div>
                         )

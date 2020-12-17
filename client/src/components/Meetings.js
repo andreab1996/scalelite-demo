@@ -59,7 +59,7 @@ class Meetings extends Component {
                         <div>
                             <CircularProgress color="secondary" />
                             <span style={{ color: 'white', fontSize: "18px", marginLeft: "10px", fontStyle: "italic" }}>
-                                No meetings were found on this server.
+                                Loading meetings from server.
                             </span>
                         </div>
                         : this.props.meetings?.map(meeting => {
@@ -105,7 +105,7 @@ class Meetings extends Component {
                                                             icon={faMicrophoneAlt}
                                                             color="gray"
                                                         />
-                                                        <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.voiceParticipationCount ? meeting.voiceParticipationCount : 0}</span>
+                                                        <span style={{ margin: "15px 5px 15px 5px" }}>{meeting.voiceParticipantCount ? meeting.voiceParticipantCount : 0}</span>
                                                     </div>
                                                 </div>
                                                 <div style={{ flexDirection: "column", display: "flex" }}>
@@ -157,7 +157,7 @@ class Meetings extends Component {
                                                 <span style={{ margin: "15px 5px 15px 5px" }}>
                                                     {meeting.attendees.attendee?.length
                                                         ? meeting.attendees.attendee.filter(a => a.role == "MODERATOR").length
-                                                        : 0}
+                                                        : 1}
                                                 </span>
                                             </div>
                                             {
