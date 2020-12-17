@@ -15,9 +15,8 @@ import {
     getServers,
     logout,
     showInfoMessage,
-    updateRedirectTo,
+    updateRedirectTo
 } from '../actions';
-import loginBackground from '../util/loginBackground.jpg';
 import { StatusCode } from '../util/StatusCode';
 import CustomAppBar from './common/CustomAppBar';
 class Server extends Component {
@@ -75,15 +74,13 @@ class Server extends Component {
     render() {
         return (
             <div style={{
-                background: `url(${loginBackground})`,
                 height: "100vh",
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
+                background: "rgb(239, 236, 236)",
                 overflow: "scroll",
                 marginTop: "0px"
             }}>
                 <CustomAppBar
-                    title="SERVERS"
+                    title="Servers"
                     logout={this.onLogOut}
                     refresh={this.onGetData}
                 />
@@ -174,12 +171,12 @@ class Server extends Component {
                                         ? <button
                                             onClick={(e) => { this.onGetMeetings(server) }}
                                             style={{
-                                                background: "#7e9eca",
+                                                background: "#660044",
                                                 color: "white",
                                                 fontSize: "1em",
                                                 margin: "5px",
                                                 padding: "0.25em 0.9em",
-                                                border: "2px solid #7e9eca",
+                                                border: "2px solid #660044",
                                                 borderRadius: "5px",
                                             }}
                                         >
@@ -190,12 +187,12 @@ class Server extends Component {
                                     <button
                                         onClick={(e) => { this.onUpdateServer(server) }}
                                         style={{
-                                            background: "#4682B4",
+                                            background: "#004D99",
                                             color: "white",
                                             fontSize: "1em",
                                             margin: "5px",
                                             padding: "0.25em 1em",
-                                            border: "2px solid #4682B4",
+                                            border: "2px solid #004D99",
                                             borderRadius: "5px",
                                         }}
                                     >
@@ -205,12 +202,12 @@ class Server extends Component {
                                         <button
                                             onClick={(e) => { this.onDeleteServer(server) }}
                                             style={{
-                                                background: "#DC143C",
+                                                background: "#D3212D",
                                                 color: "white",
                                                 fontSize: "1em",
                                                 margin: "5px",
                                                 padding: "0.25em 1em",
-                                                border: "2px solid #DC143C",
+                                                border: "2px solid #D3212D",
                                                 borderRadius: "5px",
                                             }}
                                         >
@@ -263,7 +260,6 @@ const section = {
     width: "300px",
     height: "220px",
     background: "white",
-    opacity: "0.8",
     borderRadius: "20px",
     padding: "10px",
     color: "black",
@@ -276,14 +272,14 @@ const text = {
 }
 
 const enabled = {
-    background: "green",
+    background: "#00802B",
     height: "5px",
     width: "100%",
     borderRadius: "20px",
 }
 
 const disabled = {
-    background: "red",
+    background: "rgb(230, 0, 0)",
     height: "5px",
     width: "100%",
     borderRadius: "25px",

@@ -6,7 +6,6 @@ import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { getSserverMeetings, logout, redirectToLogin } from '../actions';
-import loginBackground from '../util/loginBackground.jpg';
 import CustomAppBar from './common/CustomAppBar';
 class Meetings extends Component {
     constructor(props) {
@@ -32,14 +31,12 @@ class Meetings extends Component {
     render() {
         return (
             <div style={{
-                background: `url(${loginBackground})`,
+                background: "rgb(239, 236, 236)",
                 height: "100vh",
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
                 overflow: "scroll",
             }}>
                 <CustomAppBar
-                    title="MEETINGS"
+                    title="Meetings"
                     href="/admin-andrea/servers"
                     logout={this.onLogOut}
                     refresh={this.onGetMeetings}
@@ -50,15 +47,23 @@ class Meetings extends Component {
                 }}>
                 </div>
                 <div style={{
-                    display: "flex", flexWrap: "wrap",
+                    display: "flex",
+                    flexWrap: "wrap",
                     justifyContent: "center",
                     alignItems: "center",
                 }}>
                     {this.props.meetings?.length == 0
                         ?
-                        <div>
+                        <div style={{ marginTop: "10px" }}>
                             <CircularProgress color="secondary" />
-                            <span style={{ color: 'white', fontSize: "18px", marginLeft: "10px", fontStyle: "italic" }}>
+                            <span
+                                style={{
+                                    color: 'black',
+                                    fontSize: "18px",
+                                    marginLeft: "10px",
+                                    fontStyle: "italic"
+                                }}
+                            >
                                 Loading meetings from server.
                             </span>
                         </div>
@@ -215,10 +220,10 @@ class Meetings extends Component {
 
 const section = {
     margin: "20px",
+    minHeight: "250px",
     height: "auto",
     width: "600px",
     background: "white",
-    opacity: "0.8",
     borderRadius: "20px",
     padding: "10px",
     color: "black",
@@ -233,7 +238,7 @@ const text = {
 
 const title = {
     fontSize: "18px",
-    fontWeight: "700",
+    fontWeight: "600",
     textDecoration: "underline"
 }
 

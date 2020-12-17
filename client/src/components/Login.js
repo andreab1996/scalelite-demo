@@ -3,8 +3,6 @@ import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { checkCookies, login, noSecret, usernameChanged } from '../actions';
-import loginBackground from '../util/loginBackground.jpg';
-
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -45,10 +43,10 @@ class Login extends Component {
                             onKeyDown={(e) => this.handleKeyDown(e)}
                         />
                     </div>
-                    <div style={{ color: "red", fontSize: "18px" }}>
+                    <div style={{ color: "rgb(230, 0, 0)", fontSize: "18px" }}>
                         <span>{this.props.error}</span>
                     </div>
-                    <div style={{ color: "red", fontSize: "18px" }}>
+                    <div style={{ color: "rgb(230, 0, 0)", fontSize: "18px" }}>
                         <span>{this.props.errorMessage}</span>
                     </div>
                     <button
@@ -69,35 +67,27 @@ class Login extends Component {
     }
 }
 
-const style = {
-    margin: 15,
-};
-
 const centeredDiv = {
     top: "50%",
     left: "50%",
     width: "400px",
     height: "350px",
     position: "fixed",
-    background: "rgb(11, 83, 168)",
-    opacity: "0.7",
     transform: "translate(-50%, -50%)",
     borderRadius: "25px",
     textAlign: "center",
+    background: "rgb(239, 236, 236)"
 }
 
 const backGround = {
     height: "100vh",
     flex: 1,
-    backgroundImage: `url(${loginBackground})`,
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat'
 }
 
 const loginText = {
     textAlign: "center",
-    color: "white",
-    marginTop: "80px"
+    color: "black",
+    marginTop: "80px",
 }
 
 const inputStyle = {
@@ -108,17 +98,18 @@ const inputStyle = {
     width: "300px",
     height: "40px",
     borderRadius: "10px",
-    border: "2px solid rgb(52, 118, 240)",
+    border: "2px solid white",
+    outline: "none"
 }
 
 const buttonStyle = {
     width: "200px",
-    background: "rgb(52, 118, 240)",
+    background: "rgb(230, 0, 0)",
     color: "white",
     fontSize: "15px",
     margin: "1em",
     padding: "0.25em 1em",
-    border: "2px solid rgb(52, 118, 240)",
+    border: "2px solid rgb(230, 0, 0)",
     borderRadius: "10px",
     marginTop: "20px",
     fontWeight: "600",
