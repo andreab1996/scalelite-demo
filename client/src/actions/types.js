@@ -6,8 +6,7 @@ export const UPDATE_SERVER = 'update_server';
 export const ADD_SERVER = 'add_server';
 export const CLOSE_ALERT = 'close_alert';
 
-export const USERNAME_CHANGED = 'username_changed';
-export const PASSWORD_CHANGED = 'password_changed';
+export const SECRET_KEY_CHANGED = 'secret_key_changed';
 export const LOGIN = 'login';
 export const LOGOUT = 'logout';
 export const CHECK_COOKIES = 'check_cookies';

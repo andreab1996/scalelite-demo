@@ -2,19 +2,20 @@ import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { checkCookies, login, noSecret, usernameChanged } from '../actions';
+import { checkCookies, login, noSecret, secretKeyChanged } from '../actions';
+import './index.css';
 class Login extends Component {
     constructor(props) {
         super(props);
         this.props.checkCookies();
     }
 
-    onUsernameChanged(e) {
-        this.props.usernameChanged(e.target.value);
+    onSecretKeyChanged(e) {
+        this.props.secretKeyChanged(e.target.value);
     }
 
     onLogin() {
-        this.props.login(this.props.username);
+        this.props.login(this.props.secretKey);
     }
 
     onNoSecret() {
@@ -23,23 +24,23 @@ class Login extends Component {
 
     handleKeyDown(e) {
         if (e.key === 'Enter') {
-            console.log(this.props.username)
-            this.props.login(this.props.username);
+            console.log(this.props.secretKey)
+            this.props.login(this.props.secretKey);
         }
 
     }
 
     render() {
         return (
-            <div style={backGround}>
-                <div style={centeredDiv}>
-                    <h1 style={loginText}>Login</h1>
+            <div class="backGround">
+                <div class="centeredDiv">
+                    <h1 class="loginText">Login</h1>
                     <div style={{ marginTop: "20px" }}>
                         <input
                             type="password"
                             placeholder="Please enter secret key"
-                            style={inputStyle}
-                            onChange={(e) => { this.onUsernameChanged(e) }}
+                            class="inputStyle"
+                            onChange={(e) => { this.onSecretKeyChanged(e) }}
                             onKeyDown={(e) => this.handleKeyDown(e)}
                         />
                     </div>
@@ -51,7 +52,7 @@ class Login extends Component {
                     </div>
                     <button
                         onClick={() => this.onLogin()}
-                        style={buttonStyle}
+                        class="buttonStyle"
                     >
                         LOGIN
                     </button>
@@ -67,63 +68,9 @@ class Login extends Component {
     }
 }
 
-const centeredDiv = {
-    top: "50%",
-    left: "50%",
-    width: "400px",
-    height: "350px",
-    position: "fixed",
-    transform: "translate(-50%, -50%)",
-    borderRadius: "25px",
-    textAlign: "center",
-    background: "rgb(239, 236, 236)"
-}
-
-const backGround = {
-    height: "100vh",
-    flex: 1,
-}
-
-const loginText = {
-    textAlign: "center",
-    color: "black",
-    marginTop: "80px",
-}
-
-const inputStyle = {
-    color: 'black',
-    paddingRight: 5,
-    paddingLeft: 5,
-    fontSize: 18,
-    width: "300px",
-    height: "40px",
-    borderRadius: "10px",
-    border: "2px solid white",
-    outline: "none"
-}
-
-const buttonStyle = {
-    width: "200px",
-    background: "rgb(230, 0, 0)",
-    color: "white",
-    fontSize: "15px",
-    margin: "1em",
-    padding: "0.25em 1em",
-    border: "2px solid rgb(230, 0, 0)",
-    borderRadius: "10px",
-    marginTop: "20px",
-    fontWeight: "600",
-    height: "40px",
-}
-
 const mapStateToProps = ({ login, server }) => {
     const {
-        name,
-        username,
-        password,
-        confirmPassword,
-        samePassword,
-        registration,
+        secretKey,
         redirectTo,
         hasCookies,
         error
@@ -132,12 +79,7 @@ const mapStateToProps = ({ login, server }) => {
     const { errorMessage } = server;
 
     return {
-        name,
-        username,
-        password,
-        confirmPassword,
-        samePassword,
-        registration,
+        secretKey,
         redirectTo,
         hasCookies,
         error,
@@ -146,7 +88,7 @@ const mapStateToProps = ({ login, server }) => {
 };
 
 export default connect(mapStateToProps, {
-    usernameChanged,
+    secretKeyChanged,
     login,
     checkCookies,
     noSecret

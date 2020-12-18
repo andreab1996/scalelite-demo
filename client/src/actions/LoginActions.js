@@ -1,17 +1,10 @@
-import { CHECK_COOKIES, LOGIN, LOGOUT, NO_SECRET, PASSWORD_CHANGED, USERNAME_CHANGED } from './types';
 import Cookies from 'universal-cookie';
+import { CHECK_COOKIES, LOGIN, LOGOUT, NO_SECRET, SECRET_KEY_CHANGED } from './types';
 const cookies = new Cookies();
 
-export const usernameChanged = (text) => {
+export const secretKeyChanged = (text) => {
     return {
-        type: USERNAME_CHANGED,
-        payload: text
-    };
-};
-
-export const passwordChanged = (text) => {
-    return {
-        type: PASSWORD_CHANGED,
+        type: SECRET_KEY_CHANGED,
         payload: text
     };
 };
