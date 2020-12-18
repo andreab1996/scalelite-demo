@@ -31,3 +31,153 @@
     background-color: rgb(52, 118, 240);
     color: white;
 }
+
+.centeredDiv {
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 350px;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    border-radius: 25px;
+    text-align: center;
+    background: rgb(239, 236, 236);
+}
+
+.backGround {
+    height: 100vh;
+    flex: 1;
+}
+
+.loginText {
+    text-align: center;
+    color: black;
+    margin-top: 80px;
+}
+
+.inputStyle {
+    color: black;
+    padding-right: 5;
+    padding-left: 5;
+    font-size: 18;
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid white;
+    outline: none;
+}
+
+.buttonStyle {
+    width: 200px;
+    background: rgb(230, 0, 0);
+    color: white;
+    font-size: 15px;
+    margin: 1em;
+    padding: 0.25em 1em;
+    border: 2px solid rgb(230, 0, 0);
+    border-radius: 10px;
+    margin-top: 20px;
+    font-weight: 600;
+    height: 40px;
+}
+
+.enabled {
+    background: #00802b;
+    height: 5px;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.disabled {
+    background: rgb(230, 0, 0);
+    height: 5px;
+    width: 100%;
+    border-radius: 25px;
+}
+
+.serverSection {
+    margin: 20px;
+    width: 300px;
+    height: 220px;
+    background: white;
+    border-radius: 20px;
+    padding: 10px;
+    color: black;
+}
+
+.serverText {
+    margin: 15px 5px 15px 15px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.meetingButton {
+    background: #bf00ff;
+    color: white;
+    font-size: 1em;
+    margin: 5px;
+    padding: 0.25em 0.9em;
+    border: 2px solid #bf00ff;
+    border-radius: 5px;
+}
+
+.updateButton {
+    background: #0080ff;
+    color: white;
+    font-size: 1em;
+    margin: 5px;
+    padding: 0.25em 1em;
+    border: 2px solid #0080ff;
+    border-radius: 5px;
+}
+
+.deleteButton {
+    background: rgb(230, 0, 0);
+    color: white;
+    font-size: 1em;
+    margin: 5px;
+    padding: 0.25em 1em;
+    border: 2px solid rgb(230, 0, 0);
+    border-radius: 5px;
+}
+
+.meetingSection {
+    margin: 20px;
+    min-height: 250px;
+    height: auto;
+    width: 600px;
+    background: white;
+    border-radius: 20px;
+    padding: 10px;
+    color: black;
+    margin-top: 20px;
+}
+
+.meetingText {
+    margin: 15px 5px 15px 15px;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.plusServer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    line-height: 200px;
+    margin: 20px;
+    width: 300px;
+    height: 220px;
+    background: white;
+    opacity: 0.85;
+    border-radius: 20px;
+    padding: 10px;
+    color: black;
+}

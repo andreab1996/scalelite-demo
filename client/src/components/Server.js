@@ -99,7 +99,7 @@ class Server extends Component {
                             : this.props.update === StatusCode.error
                                 ? "Error" : "Warning"}
                         status={true}
-                        color="#1d36ad"
+                        color="rgb(230, 0, 0)"
                         quote={
                             this.props.update === StatusCode.successCreate
                                 ? "Server has been successfully created and enabled."
@@ -114,7 +114,8 @@ class Server extends Component {
                     /> : []
                 }
                 <div style={{
-                    display: "flex", flexWrap: "wrap",
+                    display: "flex",
+                    flexWrap: "wrap",
                     justifyContent: "center",
                     alignItems: "center",
                 }}>
@@ -122,7 +123,7 @@ class Server extends Component {
                     {this.props.data.map(server => {
                         return (
                             <div
-                                style={section}
+                                class="serverSection"
                                 onDoubleClick={() => {
                                     if (server.enabled && server.online)
                                         this.onGetMeetings(server);
@@ -134,33 +135,33 @@ class Server extends Component {
                                         type="info"
                                         title="Information"
                                         status={true}
-                                        color="#1d36ad"
+                                        color="rgb(230, 0, 0)"
                                         quote={this.props.message}
                                         Close={() => this.onCloseAlert()}
                                     />
                                     : ''}
                                 {server.enabled === true
-                                    ? <div style={enabled}></div>
-                                    : <div style={disabled}></div>
+                                    ? <div class="enabled"></div>
+                                    : <div class="disabled"></div>
                                 }
                                 <div style={{ marginTop: "15px" }}>
-                                    <span style={text}>Server: </span>
+                                    <span class="serverText">Server: </span>
                                     <span style={{ margin: "15px 5px 15px 5px" }}>{server.serverUrl.split("/")[2]}</span>
                                 </div>
                                 <div style={{ marginTop: "5px" }}>
-                                    <span style={text}>Status: </span>
+                                    <span class="serverText">Status: </span>
                                     {server.online === true ? "Online" : "Offline"}
                                 </div>
                                 <div style={{ marginTop: "5px" }}>
-                                    <span style={text}>Enabled: </span>
+                                    <span class="serverText">Enabled: </span>
                                     {server.enabled === true ? "Yes" : "No"}
                                 </div>
                                 <div style={{ marginTop: "5px" }}>
-                                    <span style={text}>Load Multiplier: </span>
+                                    <span class="serverText">Load Multiplier: </span>
                                     {server.loadMultiplier}
                                 </div>
                                 <div style={{ marginTop: "5px" }}>
-                                    <span style={text}>Number of conferences: </span>
+                                    <span class="serverText">Number of conferences: </span>
                                     {server.load}
                                 </div>
                                 <div style={{
@@ -169,47 +170,23 @@ class Server extends Component {
                                 }}>
                                     {server.enabled && server.online
                                         ? <button
+                                            class="meetingButton"
                                             onClick={(e) => { this.onGetMeetings(server) }}
-                                            style={{
-                                                background: "#8B008B",
-                                                color: "white",
-                                                fontSize: "1em",
-                                                margin: "5px",
-                                                padding: "0.25em 0.9em",
-                                                border: "2px solid #8B008B",
-                                                borderRadius: "5px",
-                                            }}
                                         >
                                             Meetings
                                         </button>
                                         : ''
                                     }
                                     <button
+                                        class="updateButton"
                                         onClick={(e) => { this.onUpdateServer(server) }}
-                                        style={{
-                                            background: "#004D99",
-                                            color: "white",
-                                            fontSize: "1em",
-                                            margin: "5px",
-                                            padding: "0.25em 1em",
-                                            border: "2px solid #004D99",
-                                            borderRadius: "5px",
-                                        }}
                                     >
                                         {server.enabled === true ? "Disable" : "Enable"}
                                     </button>
                                     {!server.enabled || !server.online ?
                                         <button
+                                            class="deleteButton"
                                             onClick={(e) => { this.onDeleteServer(server) }}
-                                            style={{
-                                                background: "#D3212D",
-                                                color: "white",
-                                                fontSize: "1em",
-                                                margin: "5px",
-                                                padding: "0.25em 1em",
-                                                border: "2px solid #D3212D",
-                                                borderRadius: "5px",
-                                            }}
                                         >
                                             Delete
                                     </button>
@@ -218,21 +195,7 @@ class Server extends Component {
                             </div>
                         )
                     })}
-                    <div style={{
-                        display: "flex", flexWrap: "wrap",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        alignContent: "ceter",
-                        lineHeight: "200px",
-                        margin: "20px",
-                        width: "300px",
-                        height: "220px",
-                        background: "white",
-                        opacity: "0.85",
-                        borderRadius: "20px",
-                        padding: "10px",
-                        color: "black",
-                    }}>
+                    <div class="plusServer">
                         <FontAwesomeIcon
                             icon={faPlus}
                             size="4x"
@@ -253,44 +216,6 @@ class Server extends Component {
             </div>
         )
     }
-}
-
-const section = {
-    margin: "20px",
-    width: "300px",
-    height: "220px",
-    background: "white",
-    borderRadius: "20px",
-    padding: "10px",
-    color: "black",
-}
-
-const text = {
-    margin: "15px 5px 15px 15px",
-    fontWeight: "700",
-    fontSize: "14px",
-}
-
-const enabled = {
-    background: "#00802B",
-    height: "5px",
-    width: "100%",
-    borderRadius: "20px",
-}
-
-const disabled = {
-    background: "rgb(230, 0, 0)",
-    height: "5px",
-    width: "100%",
-    borderRadius: "25px",
-}
-
-const dot = {
-    height: "15px",
-    width: "15px",
-    backgroundColor: "red",
-    borderRadius: "50%",
-    display: "inline-block",
 }
 
 const mapStateToProps = ({ server }) => {

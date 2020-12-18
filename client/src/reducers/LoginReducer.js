@@ -1,9 +1,9 @@
-import { CHECK_COOKIES, LOGIN, LOGOUT, NO_SECRET, PASSWORD_CHANGED, USERNAME_CHANGED } from '../actions/types';
 import Cookies from 'universal-cookie';
+import { CHECK_COOKIES, LOGIN, LOGOUT, NO_SECRET, SECRET_KEY_CHANGED } from '../actions/types';
 const cookies = new Cookies();
 
 const INITIAL_STATE = {
-    username: '',
+    secretKey: '',
     redirectTo: null,
     hasCookies: false,
     error: false
@@ -11,10 +11,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case USERNAME_CHANGED:
-            return { ...state, username: action.payload };
-        case PASSWORD_CHANGED:
-            return { ...state, password: action.payload };
+        case SECRET_KEY_CHANGED:
+            return { ...state, secretKey: action.payload };
         case LOGIN:
             let expires = new Date();
             expires.setTime(expires.getTime() + (60 * 60 * 1000));

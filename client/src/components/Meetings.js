@@ -69,13 +69,13 @@ class Meetings extends Component {
                         </div>
                         : this.props.meetings?.map(meeting => {
                             return (
-                                <div style={section}>
+                                <div class="meetingSection">
                                     <div style={{
                                         display: "flex",
                                         flexDirection: "row",
                                     }}>
                                         <div style={{ margin: "10px", width: "50%" }}>
-                                            <span style={title}>Basic Information:</span>
+                                            <span class="title">Basic Information:</span>
                                             <div style={{ marginTop: "10px" }}>
                                                 <FontAwesomeIcon
                                                     icon={faServer}
@@ -153,7 +153,7 @@ class Meetings extends Component {
 
                                         </div>
                                         <div style={{ margin: "10px", marginLeft: "50px", width: "50%" }}>
-                                            <span style={title}>Moderators:</span>
+                                            <span class="title">Moderators:</span>
                                             <div style={{ marginTop: "10px" }}>
                                                 <FontAwesomeIcon
                                                     icon={faUsers}
@@ -216,30 +216,6 @@ class Meetings extends Component {
             </div >
         );
     }
-}
-
-const section = {
-    margin: "20px",
-    minHeight: "250px",
-    height: "auto",
-    width: "600px",
-    background: "white",
-    borderRadius: "20px",
-    padding: "10px",
-    color: "black",
-    marginTop: "20px",
-}
-
-const text = {
-    margin: "15px 5px 15px 15px",
-    fontWeight: "700",
-    fontSize: "14px",
-}
-
-const title = {
-    fontSize: "18px",
-    fontWeight: "600",
-    textDecoration: "underline"
 }
 
 const mapStateToProps = ({ meeting }) => {
