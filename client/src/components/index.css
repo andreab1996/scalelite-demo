@@ -112,22 +112,22 @@
 }
 
 .meetingButton {
-    background: #bf00ff;
+    background: #003366;
     color: white;
     font-size: 1em;
     margin: 5px;
     padding: 0.25em 0.9em;
-    border: 2px solid #bf00ff;
+    border: 2px solid #003366;
     border-radius: 5px;
 }
 
 .updateButton {
-    background: #0080ff;
+    background: #42a0fd;
     color: white;
     font-size: 1em;
     margin: 5px;
     padding: 0.25em 1em;
-    border: 2px solid #0080ff;
+    border: 2px solid #42a0fd;
     border-radius: 5px;
 }
 
