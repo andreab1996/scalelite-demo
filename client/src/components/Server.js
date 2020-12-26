@@ -168,7 +168,7 @@ class Server extends Component {
                                     marginTop: "10px",
                                     float: "right"
                                 }}>
-                                    {server.enabled && server.online //&& server.load > 0
+                                    {server.enabled && server.online && server.load > 0
                                         ? <button
                                             class="meetingButton"
                                             onClick={(e) => { this.onGetMeetings(server) }}
