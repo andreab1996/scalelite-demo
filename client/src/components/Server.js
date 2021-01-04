@@ -15,10 +15,14 @@ import {
     getServers,
     logout,
     showInfoMessage,
-    updateRedirectTo
+    updateRedirectTo,
+    showFormDialog,
+    cancelForm,
+    serverNameChanged
 } from '../actions';
 import { StatusCode } from '../util/StatusCode';
 import CustomAppBar from './common/CustomAppBar';
+import FormDialog from './FormDialog';
 class Server extends Component {
     constructor(props) {
         super(props);
@@ -39,8 +43,20 @@ class Server extends Component {
     }
 
     onAddServer = () => {
-        this.props.addServer();
+        this.props.showFormDialog(true);
+    }
+
+    onSubmitServer = () => {
+        this.props.addServer(this.props.serverName);
         this.props.getServers();
+    }
+
+    onCancelForm = () => {
+        this.props.cancelForm(true);
+    }
+
+    onSarverNameChange = (e) => {
+        this.props.serverNameChanged(e.target.value);
     }
 
     onUpdateServer = (server) => {
@@ -213,15 +229,25 @@ class Server extends Component {
                             : ""
                     }
                 </div>
+                {this.props.showDialog === true
+                    ? <FormDialog
+                        open={this.props.showDialog}
+                        onSubmit={() => this.onSubmitServer()}
+                        onCancel={() => this.onCancelForm()}
+                        onNameChange={(e) => this.onSarverNameChange(e)}
+                        duplicate={this.props.duplicateServer}
+                    />
+                    : ""
+                }
             </div>
         )
     }
 }
 
 const mapStateToProps = ({ server }) => {
-    const { data, update, redirectTo, message, invalidSecret } = server;
+    const { data, update, redirectTo, message, invalidSecret, showDialog, serverName, duplicateServer } = server;
 
-    return { data, update, redirectTo, message, invalidSecret };
+    return { data, update, redirectTo, message, invalidSecret, showDialog, serverName, duplicateServer };
 }
 
 export default connect(
@@ -237,5 +263,8 @@ export default connect(
         showInfoMessage,
         logout,
         updateRedirectTo,
+        showFormDialog,
+        cancelForm,
+        serverNameChanged
     }
 )(hot(Server));

@@ -2,11 +2,14 @@
 import axios from 'axios';
 import {
     ADD_SERVER,
+    CANCEL_FORM_DIALOG,
     CLOSE_ALERT,
     FETCH_MEETINGS,
     FETCH_SERVERS,
     INVALID_SECRET,
+    SARVER_NAME_CHANEGED,
     SET_INITIAL_STATE,
+    SHOW_FORM_DIALOG,
     SHOW_MESSAGE,
     UPDATE_REDIRECT_TO,
     UPDATE_SERVER
@@ -66,7 +69,7 @@ export const invalidSecret = (invalid) => {
     }
 }
 
-export const addServer = () => {
+export const addServer = (serverName) => {
     console.log("Add Server");
     const scalelite = new Scalelite(
         "https://vcss.etfbl.net/scalelite/api/",
@@ -75,7 +78,7 @@ export const addServer = () => {
 
     return (dispatch) => {
         scalelite.addServer(
-            "https://vcss.etfbl.net/scalelite/api/",
+            serverName,
             "8dfcebc4b2c7faebf8ed960768c993e1bf23efc393780844"
         ).then((json) => {
             let serverID = json.server.serverID;
@@ -166,5 +169,26 @@ export const updateRedirectTo = (redirectTo) => {
     return {
         type: UPDATE_REDIRECT_TO,
         payload: redirectTo
+    }
+}
+
+export const showFormDialog = (show) => {
+    return {
+        type: SHOW_FORM_DIALOG,
+        payload: show
+    }
+}
+
+export const cancelForm = (cancel) => {
+    return {
+        type: CANCEL_FORM_DIALOG,
+        payload: cancel
+    }
+}
+
+export const serverNameChanged = (name) => {
+    return {
+        type: SARVER_NAME_CHANEGED,
+        payload: name
     }
 }

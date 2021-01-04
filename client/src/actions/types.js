@@ -16,3 +16,6 @@ export const SHOW_MESSAGE = 'show_message';
 export const INVALID_SECRET = 'invalid_secret';
 export const UPDATE_REDIRECT_TO = 'update_redirect_to';
 export const SET_INITIAL_STATE = 'set_initial_state';
+export const SHOW_FORM_DIALOG = 'show_form_dialog';
+export const CANCEL_FORM_DIALOG = 'cancel_form_dialog';
+export const SARVER_NAME_CHANEGED = 'server_name_changed';

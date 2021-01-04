@@ -1,18 +1,21 @@
 import sortBy from "lodash/sortBy";
 import {
     ADD_SERVER,
+    CANCEL_FORM_DIALOG,
     CLOSE_ALERT,
     DELETE_SERVER,
     FETCH_MEETINGS,
     FETCH_SERVERS,
     INVALID_SECRET,
+    SARVER_NAME_CHANEGED,
+    SHOW_FORM_DIALOG,
     SHOW_MESSAGE,
     UPDATE_REDIRECT_TO,
     UPDATE_SERVER
 } from '../actions/types';
 import { StatusCode } from '../util/StatusCode';
 
-const INITIAL_STATE = { data: [], update: '', type: '', redirectTo: null, message: '', invalidSecret: false, errorMessage: '' };
+const INITIAL_STATE = { data: [], update: '', type: '', redirectTo: null, message: '', invalidSecret: false, errorMessage: '', showDialog: false, serverName: "", duplicateServer: false };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
@@ -69,6 +72,14 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, invalidSecret: action.payload, errorMessage: 'You did not pass the correct checksum security check.' };
         case UPDATE_REDIRECT_TO:
             return { ...state, redirectTo: action.payload };
+        case SHOW_FORM_DIALOG:
+            return { ...state, showDialog: action.payload };
+        case CANCEL_FORM_DIALOG:
+            return { ...state, showDialog: !action.payload, serverName: "", duplicateServer: false };
+        case SARVER_NAME_CHANEGED:
+            let name = action.payload;
+            let existing = state.data.filter(s => s.serverUrl === name) || [];
+            return { ...state, serverName: action.payload, duplicateServer: existing.length === 0 ? false : true };
         default:
             return INITIAL_STATE;
     }
