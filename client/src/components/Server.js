@@ -40,6 +40,7 @@ class Server extends Component {
 
     onCloseAlert = () => {
         this.props.closeAlert();
+        this.props.getServers();
     }
 
     onAddServer = () => {
@@ -48,7 +49,6 @@ class Server extends Component {
 
     onSubmitServer = () => {
         this.props.addServer(this.props.serverName);
-        this.props.getServers();
     }
 
     onCancelForm = () => {

@@ -54,7 +54,7 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, data: newSortedServers, redirectTo: null };
         case ADD_SERVER:
             state.type = action.payload.returnCode === StatusCode.success ? StatusCode.success : StatusCode.error;
-            return { ...state, update: action.payload.returnCode === StatusCode.success ? StatusCode.successCreate : StatusCode.error };
+            return { ...state, update: action.payload.returnCode === StatusCode.success ? StatusCode.successCreate : StatusCode.error, showDialog: false };
         case UPDATE_SERVER:
             let { serverID, returnCode } = action.payload;
             state.type = returnCode === StatusCode.success ? StatusCode.success : StatusCode.error
@@ -78,7 +78,7 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, showDialog: !action.payload, serverName: "", duplicateServer: false };
         case SARVER_NAME_CHANEGED:
             let name = action.payload;
-            let existing = state.data.filter(s => s.serverUrl === name) || [];
+            let existing = state.data.filter(s => s.serverUrl.split("/")[2] === name) || [];
             return { ...state, serverName: action.payload, duplicateServer: existing.length === 0 ? false : true };
         default:
             return INITIAL_STATE;

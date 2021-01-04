@@ -78,7 +78,7 @@ export const addServer = (serverName) => {
 
     return (dispatch) => {
         scalelite.addServer(
-            serverName,
+            `https://${serverName}/scalelite/api/`,
             "8dfcebc4b2c7faebf8ed960768c993e1bf23efc393780844"
         ).then((json) => {
             let serverID = json.server.serverID;
