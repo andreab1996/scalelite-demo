@@ -162,7 +162,7 @@ class Server extends Component {
                                 </div>
                                 <div style={{ marginTop: "5px" }}>
                                     <span class="serverText">Number of conferences: </span>
-                                    {server.load}
+                                    {server.load ? server.load : 0}
                                 </div>
                                 <div style={{
                                     marginTop: "10px",
